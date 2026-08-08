@@ -1,26 +1,4 @@
-export interface StationName {
-  lang: string;
-  middel: string;
-  kort: string;
-}
-
-export interface Station {
-  code: string;
-  stationType: string;
-  EVACode?: string;
-  UICCode?: string;
-  namen: StationName;
-  land: string;
-  lat: number;
-  lng: number;
-  radius?: number;
-  middenOostenNamen?: string[];
-  [key: string]: unknown;
-}
-
-export interface StationsApiResponse {
-  payload: Station[];
-}
+import type { Station, StationsApiResponse } from "./types";
 
 export const apiService = {
   async getRandomStationsForHomepage(): Promise<Station[]> {
@@ -44,7 +22,7 @@ export const apiService = {
     const stations = data.payload;
 
     if (!stations || stations.length < 2) {
-      throw new Error('Onvoldoende stations ontvangen van de API.');
+      throw new Error('Onvoldoende stations ontvangen van de API!');
     }
 
     const selectedStations: Station[] = [];
@@ -66,6 +44,33 @@ export const apiService = {
 
     return selectedStations;
   },
+
+  async searchStations(searchQuery: string): Promise<Station[]> {
+    const response = await fetch(
+      `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations?q=${searchQuery}&countryCodes=nl`,
+      {
+        method: 'GET',
+        headers: {
+          'Ocp-Apim-Subscription-Key': import.meta.env.VITE_PRIMARY_KEY,
+          'Accept': 'application/json',
+        },
+        mode: 'cors',
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Fout bij het ophalen van stations: ${response.statusText}`);
+    }
+
+    const data: StationsApiResponse = await response.json();
+    const stations: Station[] = data.payload;
+
+    if(!stations) {
+        throw new Error("Geen stations ontvangen van de API!");
+    }
+
+    return stations;
+  }
 };
 
 export default apiService;

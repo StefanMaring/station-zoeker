@@ -13,6 +13,19 @@
         padding: 2rem;
         max-width: 35%;
 
+        @media (max-width: 1200px) {
+            max-width: 50%;
+        }
+
+        @media (max-width: 780px) {
+            max-width: 75%;
+        }
+
+        @media (max-width: 650px) {
+            max-width: 100%;
+            border-radius: 0;
+        }
+
         .hv-greeting {
             > h2 {
                 font-weight: 600;
