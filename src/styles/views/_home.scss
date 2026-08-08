@@ -1,0 +1,30 @@
+.m-home-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+
+    .hv-content {
+        display: flex;
+        flex-flow: column;
+        background-color: $primary-color;
+        color: $white;
+        border-radius: 5px;
+        padding: 2rem;
+        max-width: 35%;
+
+        .hv-greeting {
+            > h2 {
+                font-weight: 600;
+            }
+        }
+
+        .hv-search-form {
+            margin-top: 1rem;
+        }
+
+        .hv-suggested-stations {
+            margin-top: 1rem;
+        }
+    }
+}

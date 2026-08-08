@@ -1,5 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+//Variables
+$primary-color: #003082;
+$primary-color-disabled: #0040af;
+$secondary-color: #f7d417;
+$secondary-color-disabled: #f7e17a;
+$black: #000;
+$white: #fff;
+$font-family: 'Open Sans', sans-serif;
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    font-family: $font-family;
+    background-color: $white;
+    color: $black;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }

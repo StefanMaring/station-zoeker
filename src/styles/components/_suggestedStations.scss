@@ -1,0 +1,12 @@
+.s-suggested-stations {
+  
+    > h4 {
+        font-weight: 600;
+
+        > span, a {
+            color: $secondary-color;
+            text-decoration: underline;
+            font-weight: 700;
+        }
+    }
+}
