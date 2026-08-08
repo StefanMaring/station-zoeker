@@ -8,8 +8,8 @@ In de eerste fase is daarbij vooral gefocust op het kunnen inzien van de vertrek
 
 ## 👏 Credits
 Met dank aan:
-[NS API](https://apiportal.ns.nl/)
-[bahnhof.de](https://www.bahnhof.de/)
+- [NS API](https://apiportal.ns.nl/)
+- [bahnhof.de](https://www.bahnhof.de/)
 
 ## ⏩ Wat komt er nog aan?
 - Aankomsttijden kunnen inzien per station
