@@ -1,8 +1,8 @@
 <template>
     <div class="s-suggested-stations" v-if="station1 && station2">
         <h4>
-            Heb je al eens van <span>{{ station1.namen.lang }}</span> gehoord? Of wat dacht je van <span>{{ station2.namen.lang }}</span>? 
-            En ben je al eens op <span>{{ station3.namen.lang }}</span> geweest?
+            Heb je al eens van <span><a :href="`/station/${station1.code.toLowerCase()}`">{{ station1.namen.lang }}</a></span> gehoord? Of wat dacht je van <span><a :href="`/station/${station2.code.toLowerCase()}`">{{ station2.namen.lang }}</a></span>? 
+            En ben je al eens op <span><a :href="`/station/${station3.code.toLowerCase()}`">{{ station3.namen.lang }}</a></span> geweest?
         </h4>
     </div>
 </template>
@@ -19,7 +19,7 @@ export default {
             station3: null,
         }
     },
-    async created() {
+    async mounted() {
         try {
             const stations = await apiService.getRandomStationsForHomepage();
             this.station1 = stations[0]

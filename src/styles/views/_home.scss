@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: center;
     height: 50vh;
+    background-color: $white-bg;
 
     .hv-content {
         display: flex;
@@ -11,18 +12,18 @@
         color: $white;
         border-radius: 5px;
         padding: 2rem;
-        max-width: 35%;
+        width: 35%;
 
         @media (max-width: 1200px) {
-            max-width: 50%;
+            width: 50%;
         }
 
         @media (max-width: 780px) {
-            max-width: 75%;
+            width: 75%;
         }
 
         @media (max-width: 650px) {
-            max-width: 100%;
+            width: 100%;
             border-radius: 0;
         }
 

@@ -1,0 +1,77 @@
+.s-station-departures {
+  .s-departures-result {
+    margin-top: 1rem;
+
+    .s-departure-header {
+        display: grid;
+        grid-template-columns: 1fr 40% 1fr;
+        font-weight: 700;
+
+        > p:nth-child(3) {
+            text-align: right;
+        }
+    }
+
+    .s-departure-result {
+      display: grid;
+      grid-template-columns: 1fr 40% 1fr;
+      align-items: end;
+      padding: 2rem 0;
+      border-top: 2px solid $white;
+      border-bottom: 2px solid $white;
+
+      .column-one {
+        .product-name {
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .actual-time-delay {
+          display: inline-block;
+          margin-left: 5px;
+        }
+
+        .delay-badge {
+          background-color: $red;
+          color: $white;
+          border-radius: 5px;
+          padding: 2px;
+          font-weight: 700;
+          margin-left: 5px;
+        }
+      }
+
+      .column-two {
+        .route-stations {
+            display: flex;
+            flex-flow: row wrap;
+            gap: 5px;
+        }
+
+        .direction {
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 24px;
+            font-weight: 800;
+        }
+      }
+
+      .column-three {
+        text-align: right;
+
+        .actual-platform-changed {
+          display: inline-block;
+          margin-left: 5px;
+          background-color: $secondary-color;
+          color: $black;
+          border-radius: 5px;
+          padding: 2px;
+          font-weight: 700;
+          text-align: center;
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  }
+}

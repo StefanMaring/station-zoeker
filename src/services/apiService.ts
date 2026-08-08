@@ -1,4 +1,9 @@
-import type { Station, StationsApiResponse } from "./types";
+import type {
+  Station,
+  StationsApiResponse,
+  DeparturesApiResponse,
+  DeparturesPayload,
+} from './types'
 
 export const apiService = {
   async getRandomStationsForHomepage(): Promise<Station[]> {
@@ -8,41 +13,41 @@ export const apiService = {
         method: 'GET',
         headers: {
           'Ocp-Apim-Subscription-Key': import.meta.env.VITE_PRIMARY_KEY,
-          'Accept': 'application/json',
+          Accept: 'application/json',
         },
         mode: 'cors',
-      }
-    );
+      },
+    )
 
     if (!response.ok) {
-      throw new Error(`Fout bij het ophalen van stations: ${response.statusText}`);
+      throw new Error(`Error while fetching random stations: ${response.statusText}`)
     }
 
-    const data: StationsApiResponse = await response.json();
-    const stations = data.payload;
+    const data: StationsApiResponse = await response.json()
+    const stations = data.payload
 
     if (!stations || stations.length < 2) {
-      throw new Error('Onvoldoende stations ontvangen van de API!');
+      throw new Error('Number of received stations was to small!')
     }
 
-    const selectedStations: Station[] = [];
+    const selectedStations: Station[] = []
 
-    const index1 = Math.floor(Math.random() * stations.length);
-    selectedStations.push(stations[index1]!);
+    const index1 = Math.floor(Math.random() * stations.length)
+    selectedStations.push(stations[index1]!)
 
-    let index2 = Math.floor(Math.random() * stations.length);
+    let index2 = Math.floor(Math.random() * stations.length)
     while (index2 === index1) {
-      index2 = Math.floor(Math.random() * stations.length);
+      index2 = Math.floor(Math.random() * stations.length)
     }
-    selectedStations.push(stations[index2]!);
+    selectedStations.push(stations[index2]!)
 
-    let index3 = Math.floor(Math.random() * stations.length);
+    let index3 = Math.floor(Math.random() * stations.length)
     while (index3 === index2 || index3 === index1) {
-        index3 = Math.floor(Math.random() * stations.length);
+      index3 = Math.floor(Math.random() * stations.length)
     }
-    selectedStations.push(stations[index3]!);
+    selectedStations.push(stations[index3]!)
 
-    return selectedStations;
+    return selectedStations
   },
 
   async searchStations(searchQuery: string): Promise<Station[]> {
@@ -52,25 +57,52 @@ export const apiService = {
         method: 'GET',
         headers: {
           'Ocp-Apim-Subscription-Key': import.meta.env.VITE_PRIMARY_KEY,
-          'Accept': 'application/json',
+          Accept: 'application/json',
         },
         mode: 'cors',
-      }
-    );
+      },
+    )
 
     if (!response.ok) {
-      throw new Error(`Fout bij het ophalen van stations: ${response.statusText}`);
+      throw new Error(`Error while fetching stations: ${response.statusText}`)
     }
 
-    const data: StationsApiResponse = await response.json();
-    const stations: Station[] = data.payload;
+    const data: StationsApiResponse = await response.json()
+    const stations: Station[] = data.payload
 
-    if(!stations) {
-        throw new Error("Geen stations ontvangen van de API!");
+    if (!stations) {
+      throw new Error('No stations received from API!')
     }
 
-    return stations;
-  }
-};
+    return stations
+  },
 
-export default apiService;
+  async getDeparturesForStation(stationCode: string): Promise<DeparturesPayload> {
+    const response = await fetch(
+      `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures?station=${stationCode}&maxJourneys=10`,
+      {
+        method: 'GET',
+        headers: {
+          'Ocp-Apim-Subscription-Key': import.meta.env.VITE_PRIMARY_KEY,
+          Accept: 'application/json',
+        },
+        mode: 'cors',
+      },
+    )
+
+    if (!response.ok) {
+      throw new Error(`Error while fetching departures for station: ${response.statusText}`)
+    }
+
+    const data: DeparturesApiResponse = await response.json()
+    const departures: DeparturesPayload = data.payload
+
+    if (!departures) {
+      throw new Error('No departures received from API!')
+    }
+
+    return departures
+  },
+}
+
+export default apiService
