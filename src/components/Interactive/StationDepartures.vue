@@ -8,7 +8,7 @@
             </div>
             <div class="s-departure-result" v-for="(departure, index) in departures" :key="index">
                 <div class="column-one">
-                    <p class="product-name">{{ departure.product.operatorName }} {{ departure.product.longCategoryName }}</p>
+                    <p class="product-name">{{ departure.product.operatorName }} {{ departure.product.longCategoryName }} <span v-if="departure.product.lineNumber">{{ departure.product.lineNumber }}</span></p>
                     <template v-if="getDelayInMinutes(departure) > 0">
                         <del class="original-time">{{ formatTime(departure.plannedDateTime) }}</del>
                         <span class="actual-time-delay">{{ formatTime(departure.actualDateTime) }}</span>

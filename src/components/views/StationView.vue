@@ -10,7 +10,7 @@
         </section>
         <div class="sv-nav-menu">
             <a class="nav-button" href="/"><i class="fas fa-home"></i></a>
-            <button class="nav-button" @click="window.location.reload()"><i class="fas fa-sync-alt"></i></button>
+            <button title="Refresh de vertrektijden" class="nav-button" @click="reloadPage"><i class="fas fa-sync-alt"></i></button>
         </div>
     </main>
 </template>
@@ -26,6 +26,11 @@ export default {
     data() {
         return {
             stationCode: this.$route.params.stationCode,
+        }
+    },
+    methods: {
+        reloadPage() {
+            window.location.reload();
         }
     },
 }

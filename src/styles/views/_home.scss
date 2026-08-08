@@ -1,8 +1,7 @@
 .m-home-view {
     display: flex;
-    align-items: center;
     justify-content: center;
-    height: 50vh;
+    height: 100vh;
     background-color: $white-bg;
 
     .hv-content {
@@ -13,6 +12,8 @@
         border-radius: 5px;
         padding: 2rem;
         width: 35%;
+        max-height: fit-content;
+        margin-top: 15rem;
 
         @media (max-width: 1200px) {
             width: 50%;
@@ -29,6 +30,7 @@
 
         .hv-greeting {
             > h2 {
+                font-size: 20px;
                 font-weight: 600;
             }
         }

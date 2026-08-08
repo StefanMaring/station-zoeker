@@ -1,48 +1,54 @@
 .m-station-view {
-    position: relative;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color: $primary-color;
+
+  .sv-content {
     display: flex;
-    justify-content: center;
-    height: 100vh;
-    background-color: $primary-color;
+    flex-flow: column;
+    color: $white;
+    border-radius: 5px;
+    padding: 2rem;
+    width: 50%;
+    overflow-y: scroll;
 
-    .sv-content {
-        display: flex;
-        flex-flow: column;
-        color: $white;
-        border-radius: 5px;
-        padding: 2rem;
-        width: 50%;
-        overflow-y: scroll;
-
-        @media (max-width: 780px) {
-            width: 75%;
-        }
-
-        @media (max-width: 650px) {
-            width: 100%;
-        }
+    @media (max-width: 780px) {
+      width: 75%;
     }
 
-    .sv-nav-menu {
-        position: absolute;
-        left: 25px;
-        bottom: 25px;
-        display: flex;
-        gap: 10px;
-
-        .nav-button {
-            display: inline-flex;
-            border-radius: 50%;
-            background-color: $secondary-color;
-            color: $black;
-            width: 50px;
-            height: 50px;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            outline: none;
-            font-size: 18px;
-            cursor: pointer;
-        }
+    @media (max-width: 650px) {
+      width: 100%;
     }
+  }
+
+  .sv-nav-menu {
+    position: absolute;
+    left: 25px;
+    bottom: 25px;
+    display: flex;
+    gap: 10px;
+
+    .nav-button {
+      display: inline-flex;
+      border-radius: 50%;
+      background-color: $secondary-color;
+      color: $black;
+      width: 50px;
+      height: 50px;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      outline: none;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.5s ease-in-out;
+
+      &:hover {
+        background-color: $secondary-color-hv;
+        transition: background-color 0.5s ease-in-out;
+      }
+    }
+  }
 }
