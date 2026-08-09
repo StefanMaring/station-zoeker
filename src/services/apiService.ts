@@ -1,12 +1,5 @@
-import type {
-  Station,
-  StationsApiResponse,
-} from '../types/station'
-
-import type {
-  DeparturesPayload,
-  DeparturesApiResponse,
-} from '../types/departures'
+import type { Station, StationsApiResponse } from '../types/stations'
+import type { DeparturesPayload, DeparturesApiResponse } from '../types/departures'
 
 export const apiService = {
   async getRandomStationsForHomepage(): Promise<Station[]> {

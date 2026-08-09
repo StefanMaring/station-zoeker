@@ -9,15 +9,16 @@
     </div>  
 </template>
 
-<script>
+<script lang="ts">
 import apiService from '@/services/apiService';
+import type { Station } from '@/types/stations';
 
 export default {
     name: 'SearchForm',
     data() {
         return {
             searchQuery: "",
-            filteredStations: [],
+            filteredStations: [] as Station[],
         }
     },
     methods: {
