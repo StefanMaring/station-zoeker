@@ -18,22 +18,19 @@
                 </div>
             </div>
             <div class="sv-station-board">
-                <StationDepartures :stationCode="stationCode" :stationName="stationName" v-if="isViewingDepartures" />
-                <StationArrivals :stationCode="stationCode" :stationName="stationName" v-else />
+                <StationListings :stationCode="stationCode" :stationName="stationName" :isViewingDepartures="isViewingDepartures" />
             </div>
         </section>
     </main>
 </template>
 
 <script lang="ts">
-import StationDepartures from '@/components/Interactive/StationDepartures.vue';
-import StationArrivals from '@/components/Interactive/StationArrivals.vue';
+import StationListings from '../Interactive/StationListings.vue';
 
 export default {
     name: 'StationDeparturesView',
     components: {
-        StationDepartures,
-        StationArrivals,
+        StationListings,
     },
     data() {
         return {

@@ -9,13 +9,14 @@
 </template>
 
 <script lang="ts">
-import type { ArrivalMessage } from '@/types/arrivals'
+import type { DepartureMessage } from '@/types/departures'
+import type { ArrivalMessage } from '@/types/arrivals';
 
 export default {
-    name: 'DepartureMessages',
+    name: 'ListingMessages',
     props: {
         messages: {
-            type: Array as () => ArrivalMessage[],
+            type: Array as () => DepartureMessage[] | ArrivalMessage[],
             required: true,
         },
     },
