@@ -2,10 +2,10 @@
     <main class="m-station-view">
         <section class="sv-content">
             <div class="sv-station-header">
-                <h1>Stationsnaam</h1>
+                <h1>{{ stationNameFormatted(stationName) }}</h1>
             </div>
             <div class="sv-station-departures">
-                <StationDepartures :stationCode="this.stationCode" />
+                <StationDepartures :stationCode="stationCode" :stationName="stationName" />
             </div>
         </section>
         <div class="sv-nav-menu">
@@ -15,7 +15,7 @@
     </main>
 </template>
 
-<script>
+<script lang="ts">
 import StationDepartures from '@/components/Interactive/StationDepartures.vue';
 
 export default {
@@ -25,13 +25,29 @@ export default {
     },
     data() {
         return {
-            stationCode: this.$route.params.stationCode,
+            stationCode: this.$route.query.code as string,
+            stationName: this.$route.query.name as string,
         }
     },
     methods: {
         reloadPage() {
             window.location.reload();
-        }
+        },
+        stationNameFormatted(name: string): string {
+            return name.split(' ').map(word => {
+                return word.split('-').map(subWord => {
+                    if(subWord.startsWith("ij")) {
+                        return "IJ" + subWord.slice(2);
+                    }
+
+                    if(subWord === "a/d") {
+                        return "a/d";
+                    } else {
+                        return subWord.charAt(0).toUpperCase() + subWord.slice(1);
+                    }
+                }).join('-');
+            }).join(' ');
+        },
     },
 }
 </script>

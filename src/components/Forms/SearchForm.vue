@@ -4,7 +4,9 @@
             <input v-model="searchQuery" @keyup="searchStations" type="text" placeholder="Zoek je station..." id="station-search-input"/>
         </form>
         <div class="sf-search-results" v-if="filteredStations.length">
-            <div class="sf-result-item" v-for="(station, index) in filteredStations" :key="index"><a :href="`/station/${station.code.toLowerCase()}`">{{ station.namen.lang }}</a></div>
+            <div class="sf-result-item" v-for="(station, index) in filteredStations" :key="index">
+                <a :href="`/station?code=${station.code.toLowerCase()}&name=${station.namen.lang.toLowerCase()}`">{{ station.namen.lang }}</a>
+            </div>
         </div>
     </div>  
 </template>

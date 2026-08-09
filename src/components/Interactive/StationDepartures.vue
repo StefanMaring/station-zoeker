@@ -26,6 +26,10 @@ export default {
             type: String,
             required: true,
         },
+        stationName: {
+            type: String,
+            required: true,
+        },
     },
     components: {
         DepartureElem,
