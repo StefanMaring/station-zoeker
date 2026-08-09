@@ -13,4 +13,3 @@ Met dank aan:
 
 ## ⏩ Wat komt er nog aan?
 - Aankomsttijden kunnen inzien per station
-- Meldingen zien, bijvoorbeeld wanneer een trein niet verder rijdt of uitvalt
