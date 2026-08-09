@@ -12,12 +12,12 @@
   height: 25px;
 }
 
-.s-station-departures {
-  .s-departures-result {
+.s-station-listings {
+  .s-listing-result {
     margin-top: 1rem;
 
     //Desktop header
-    .s-departure-header {
+    .s-listing-header {
       display: grid;
       grid-template-columns: 1fr 40% 1fr;
       font-weight: 700;
@@ -32,7 +32,7 @@
     }
 
     //Mobile header
-    .s-departure-header-responsive {
+    .s-listing-header-responsive {
       display: none;
       font-weight: 700;
 
@@ -43,7 +43,7 @@
       }
     }
 
-    .s-departure-row {
+    .s-listing-row {
       display: grid;
       grid-template-columns: 1fr 40% 1fr;
       grid-template-rows: auto fit-content(100%);
@@ -94,7 +94,7 @@
           gap: 5px;
         }
 
-        > .direction {
+        > .direction, .origin {
           display: inline-block;
           margin-top: 5px;
           font-size: 24px;
@@ -116,7 +116,7 @@
             margin-top: 0.5rem;
           }
 
-          > .direction {
+          > .direction, .origin {
             display: inline-block;
             font-size: 24px;
             font-weight: 800;
@@ -150,7 +150,7 @@
     }
   }
 
-  .s-no-departures {
+  .s-no-listings {
     margin-top: 0.5rem;
   }
 }

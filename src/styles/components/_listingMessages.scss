@@ -1,4 +1,4 @@
-.s-departure-messages {
+.s-listing-messages {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -14,7 +14,7 @@
     margin-top: 1rem;
   }
 
-  .s-departure-message {
+  .s-listing-message {
     text-align: left;
 
     .s-warning-message,

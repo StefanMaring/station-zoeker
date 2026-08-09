@@ -1,5 +1,6 @@
 import type { Station, StationsApiResponse } from '../types/stations'
 import type { DeparturesPayload, DeparturesApiResponse } from '../types/departures'
+import type { ArrivalsPayload, ArrivalsApiResponse } from '@/types/arrivals'
 
 export const apiService = {
   async getRandomStationsForHomepage(): Promise<Station[]> {
@@ -70,7 +71,7 @@ export const apiService = {
       throw new Error('No stations received from API!')
     }
 
-    return stations
+    return stations;
   },
 
   async getDeparturesForStation(stationCode: string): Promise<DeparturesPayload> {
@@ -97,7 +98,34 @@ export const apiService = {
       throw new Error('No departures received from API!')
     }
 
-    return departures
+    return departures;
+  },
+
+  async getArrivalsForStation(stationCode: string): Promise<ArrivalsPayload> {
+    const response = await fetch(
+      `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/arrivals?station=${stationCode}&maxJourneys=10`,
+      {
+        method: 'GET',
+        headers: {
+          'Ocp-Apim-Subscription-Key': import.meta.env.VITE_PRIMARY_KEY,
+          Accept: 'application/json',
+        },
+        mode: 'cors',
+      },
+    )
+
+    if (!response.ok) {
+      throw new Error(`Error while fetching arrivals for station: ${response.statusText}`)
+    }
+
+    const data: ArrivalsApiResponse = await response.json()
+    const arrivals: ArrivalsPayload = data.payload
+
+    if (!arrivals) {
+      throw new Error('No arrivals received from API!')
+    }
+
+    return arrivals;
   },
 }
 

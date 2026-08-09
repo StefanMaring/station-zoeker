@@ -1,21 +1,21 @@
 <template>
-    <div class="s-station-departures">
-        <div class="s-departures-result" v-if="departures.length">
-            <div class="s-departure-header">
+    <div class="s-station-listings">
+        <div class="s-listing-result" v-if="departures.length">
+            <div class="s-listing-header">
                 <p>Tijd / Type</p>
                 <p>Route / Eindbestemming</p>
                 <p>Perron / Platform</p>
             </div>
-            <div class="s-departure-header-responsive">
+            <div class="s-listing-header-responsive">
                 <p>Tijd / Eindbestemming</p>
                 <p>Perron / Platform</p>
             </div>
-            <div class="s-departure-row" :class="departure.messages.length > 0 ? 's-departure-result-with-message' : ''" v-for="(departure, index) in departures" :key="index">
+            <div class="s-listing-row" :class="departure.messages.length > 0 ? 's-listing-result-with-message' : ''" v-for="(departure, index) in departures" :key="index">
                 <DepartureElem :departure="departure" />
                 <DepartureMessages :messages="departure.messages" v-if="departure.messages.length > 0" />
             </div>
         </div>
-        <div class="s-no-departures" v-else>Er zijn momenteel geen vertrekkende treinen op dit station.</div>
+        <div class="s-no-listings" v-else>Er zijn momenteel geen vertrekkende treinen op dit station.</div>
     </div>
 </template>
 

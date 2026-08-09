@@ -11,11 +11,15 @@
                         <button class="nav-button" @click="reloadPage" title="Refresh de vertrektijden">
                             <i class="fas fa-sync-alt"></i>
                         </button>
+                        <button class="nav-button" @click="isViewingDepartures = !isViewingDepartures" :title="isViewingDepartures ? 'Bekijk de aankomsttijden' : 'Bekijk de vertrektijden'">
+                            <i :class="isViewingDepartures ? 'fa-solid fa-right-from-bracket' : 'fa-solid fa-right-to-bracket'"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="sv-station-departures">
-                <StationDepartures :stationCode="stationCode" :stationName="stationName" />
+            <div class="sv-station-board">
+                <StationDepartures :stationCode="stationCode" :stationName="stationName" v-if="isViewingDepartures" />
+                <StationArrivals :stationCode="stationCode" :stationName="stationName" v-else />
             </div>
         </section>
     </main>
@@ -23,16 +27,19 @@
 
 <script lang="ts">
 import StationDepartures from '@/components/Interactive/StationDepartures.vue';
+import StationArrivals from '@/components/Interactive/StationArrivals.vue';
 
 export default {
     name: 'StationDeparturesView',
     components: {
         StationDepartures,
+        StationArrivals,
     },
     data() {
         return {
             stationCode: this.$route.query.code as string,
             stationName: this.$route.query.name as string,
+            isViewingDepartures: true,
         }
     },
     methods: {
