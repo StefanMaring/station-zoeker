@@ -28,7 +28,7 @@
 
         <p class="location">{{ location }}</p>
 
-        <div class="responsive-direction-view">
+        <div class="responsive-location-view">
             <p class="location">{{ location }}</p>
             <div>
                 <template v-if="checkIfPlatformHasChanged(listing)">
