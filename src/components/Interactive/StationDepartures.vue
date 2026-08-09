@@ -6,8 +6,9 @@
                 <p>Route / Eindbestemming</p>
                 <p>Perron / Platform</p>
             </div>
-            <div class="s-departure-result" v-for="(departure, index) in departures" :key="index">
+            <div class="s-departure-result" :class="departure.messages.length > 0 ? 's-departure-result-with-message' : ''" v-for="(departure, index) in departures" :key="index">
                 <DepartureElem :departure="departure" />
+                <DepartureMessages :messages="departure.messages" v-if="departure.messages.length > 0" />
             </div>
         </div>
         <div class="s-no-departures" v-else>Er zijn momenteel geen vertrekkende treinen op dit station.</div>
@@ -17,6 +18,7 @@
 <script lang="ts">
 import apiService from '@/services/apiService'
 import DepartureElem from './DepartureElem.vue'
+import DepartureMessages from './DepartureMessages.vue'
 import type { Departure } from '@/types/departures'
 
 export default {
@@ -33,6 +35,7 @@ export default {
     },
     components: {
         DepartureElem,
+        DepartureMessages,
     },
     data() {
         return {

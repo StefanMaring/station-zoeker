@@ -3,13 +3,13 @@
     margin-top: 1rem;
 
     .s-departure-header {
-        display: grid;
-        grid-template-columns: 1fr 40% 1fr;
-        font-weight: 700;
+      display: grid;
+      grid-template-columns: 1fr 40% 1fr;
+      font-weight: 700;
 
-        > p:nth-child(3) {
-            text-align: right;
-        }
+      > p:nth-child(3) {
+        text-align: right;
+      }
     }
 
     .s-departure-result {
@@ -22,8 +22,8 @@
 
       .column-one {
         .product-name {
-            font-weight: 700;
-            margin-bottom: 15px;
+          font-weight: 700;
+          margin-bottom: 15px;
         }
 
         .actual-time-delay {
@@ -43,16 +43,16 @@
 
       .column-two {
         .route-stations {
-            display: flex;
-            flex-flow: row wrap;
-            gap: 5px;
+          display: flex;
+          flex-flow: row wrap;
+          gap: 5px;
         }
 
         .direction {
-            display: inline-block;
-            margin-top: 5px;
-            font-size: 24px;
-            font-weight: 800;
+          display: inline-block;
+          margin-top: 5px;
+          font-size: 24px;
+          font-weight: 800;
         }
       }
 
@@ -73,9 +73,13 @@
         }
       }
     }
+
+    .s-departure-result-with-message {
+      grid-template-rows: 1fr 50px;
+    }
   }
 
   .s-no-departures {
-        margin-top: 0.5rem;
-    }
+    margin-top: 0.5rem;
+  }
 }
