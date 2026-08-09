@@ -3,15 +3,21 @@
         <section class="sv-content">
             <div class="sv-station-header">
                 <h1>{{ stationNameFormatted(stationName) }}</h1>
+                <div class="sv-station-header-right">
+                    <div class="sv-nav-menu">
+                        <button class="nav-button" title="Terug naar home">
+                            <a href="/"><i class="fas fa-home"></i></a>
+                        </button>
+                        <button class="nav-button" @click="reloadPage" title="Refresh de vertrektijden">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="sv-station-departures">
                 <StationDepartures :stationCode="stationCode" :stationName="stationName" />
             </div>
         </section>
-        <div class="sv-nav-menu">
-            <a class="nav-button" href="/"><i class="fas fa-home"></i></a>
-            <button title="Refresh de vertrektijden" class="nav-button" @click="reloadPage"><i class="fas fa-sync-alt"></i></button>
-        </div>
     </main>
 </template>
 
