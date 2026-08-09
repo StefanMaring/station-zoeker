@@ -10,7 +10,7 @@
                 <p>{{ isViewingDepartures ? 'Tijd / Eindbestemming' : 'Tijd / Afkomstig uit' }}</p>
                 <p>Perron / Platform</p>
             </div>
-            <div class="s-listing-row" :class="listing.messages.length > 0 ? 's-listing-result-with-message' : ''" v-for="(listing, index) in isViewingDepartures ? departures : arrivals" :key="index">
+            <div class="s-listing-row" :class="listing.messages.length > 0 ? 's-listing-result-with-message' : ''" v-for="(listing, index) in activeListings" :key="index">
                 <ListingElem :listing="listing" />
                 <ListingMessages :messages="listing.messages" v-if="listing.messages.length > 0" />
             </div>
