@@ -1,5 +1,5 @@
 # 🔎 Station Zoeker
-Welkom bij Station Zoeker, de website waarmee je snel de vertrek- en aankomsttijden van jouw favoriete stations in Nederland kan zien. 
+Welkom bij Station Zoeker, de website waarmee je snel de vertrek- en aankomsttijden van jouw favoriete stations in Nederland kan inzien. 
 
 ## 📖 Hoe werkt het?
 Het werkt vrij eenvoudig, je typt in de zoekbalk jouw favoriete station in en klikt deze aan. 
