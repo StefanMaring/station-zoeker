@@ -1,29 +1,3 @@
-//Station related interfaces
-export interface StationName {
-  lang: string;
-  middel: string;
-  kort: string;
-}
-
-export interface Station {
-  code: string;
-  stationType: string;
-  EVACode?: string;
-  UICCode?: string;
-  namen: StationName;
-  land: string;
-  lat: number;
-  lng: number;
-  radius?: number;
-  middenOostenNamen?: string[];
-  [key: string]: unknown;
-}
-
-export interface StationsApiResponse {
-  payload: Station[];
-}
-
-//Departure related interfaces
 export interface RouteStation {
   uicCode: string;
   mediumName: string;
@@ -31,6 +5,7 @@ export interface RouteStation {
 
 export interface Product {
   number: string;
+  lineNumber?: string;
   categoryCode: string;
   shortCategoryName: string;
   longCategoryName: string;
