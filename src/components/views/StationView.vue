@@ -36,7 +36,6 @@ export default {
         stationNameFormatted(name: string): string {
             const SPECIAL_CASES: Record<string, string> = {
                 "a/d": "a/d",
-                "v/d": "v/d",
                 "v": "v",
                 "hs": "HS",
                 "rai": "RAI",
