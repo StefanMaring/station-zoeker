@@ -10,7 +10,7 @@
                 <DepartureElem :departure="departure" />
             </div>
         </div>
-        <div v-else>Er zijn momenteel geen vertrekkende treinen</div>
+        <div class="s-no-departures" v-else>Er zijn momenteel geen vertrekkende treinen op dit station.</div>
     </div>
 </template>
 
