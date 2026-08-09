@@ -7,9 +7,30 @@
       grid-template-columns: 1fr 40% 1fr;
       font-weight: 700;
 
+      @media (max-width: 600px) {
+        display: none;
+        visibility: hidden;
+        opacity: 0;
+      }
+
       > p:nth-child(3) {
         text-align: right;
       }
+    }
+
+    .s-departure-header-responsive {
+        display: none;
+        visibility: hidden;
+        opacity: 0;
+
+        @media (max-width: 600px) {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            visibility: visible;
+            opacity: 100%;
+            font-weight: 700;
+        }
     }
 
     .s-departure-result {
@@ -20,7 +41,17 @@
       border-top: 2px solid $white;
       border-bottom: 2px solid $white;
 
+      @media (max-width: 600px) {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: normal;
+      }
+
       .column-one {
+        @media (max-width: 600px) {
+          margin-bottom: 0.5rem;
+        }
+
         .product-name {
           font-weight: 700;
           margin-bottom: 15px;
@@ -48,16 +79,70 @@
           gap: 5px;
         }
 
-        .direction {
+        > .direction {
           display: inline-block;
           margin-top: 5px;
           font-size: 24px;
           font-weight: 800;
+
+          @media (max-width: 600px) {
+            display: none;
+            visibility: hidden;
+            opacity: 0;
+          }
+        }
+
+        > .responsive-direction-view {
+          display: none;
+          visibility: hidden;
+          opacity: 0;
+
+          @media (max-width: 600px) {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: center;
+            visibility: visible;
+            opacity: 100%;
+            margin-top: 0.5rem;
+          }
+
+          > .direction {
+            display: inline-block;
+            font-size: 24px;
+            font-weight: 800;
+          }
+
+          > div {
+            > .actual-platform {
+                display: inline-block;
+                margin-top: 5px;
+            }
+
+            > .actual-platform-changed {
+              display: inline-block;
+              margin-left: 5px;
+              background-color: $secondary-color;
+              color: $black;
+              border-radius: 5px;
+              padding: 2px;
+              font-weight: 700;
+              text-align: center;
+              width: 25px;
+              height: 25px;
+            }
+          }
         }
       }
 
       .column-three {
         text-align: right;
+
+        @media (max-width: 600px) {
+          display: none;
+          visibility: hidden;
+          opacity: 0;
+        }
 
         .actual-platform-changed {
           display: inline-block;

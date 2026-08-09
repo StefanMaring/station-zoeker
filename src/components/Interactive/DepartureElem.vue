@@ -20,6 +20,18 @@
             </p>
         </div>
         <p class="direction">{{ departure.direction }}</p>
+        <div class="responsive-direction-view">
+            <p class="direction">{{ departure.direction }}</p>
+            <div>
+                <template v-if="checkIfPlatformHasChanged(departure)">
+                    <del class="original-platform">{{ departure.plannedTrack }}</del>
+                    <span class="actual-platform-changed">{{ departure.actualTrack }}</span>
+                </template>
+                <template v-else>
+                    <span class="actual-platform">{{ departure.plannedTrack }}</span>
+                </template>
+            </div>
+        </div>
     </div>
     <div class="column-three">
         <template v-if="checkIfPlatformHasChanged(departure)">
