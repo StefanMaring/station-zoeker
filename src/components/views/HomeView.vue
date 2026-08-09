@@ -3,7 +3,7 @@
         <section class="hv-content">
             <div class="hv-greeting">
                 <h1>Station Zoeker</h1>
-                <h2>Zoek je station en bekijk de actuele vertrektijden</h2>
+                <h2>Zoek je station en bekijk de actuele vertrek- en aankomsttijden</h2>
             </div>
             <div class="hv-search-form">
                 <SearchForm />
