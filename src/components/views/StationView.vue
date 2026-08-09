@@ -34,17 +34,26 @@ export default {
             window.location.reload();
         },
         stationNameFormatted(name: string): string {
+            const SPECIAL_CASES: Record<string, string> = {
+                "a/d": "a/d",
+                "v/d": "v/d",
+                "v": "v",
+                "hs": "HS",
+                "rai": "RAI",
+                "noi": "NOI",
+                "arena": "ArenA",
+            };
+
             return name.split(' ').map(word => {
                 return word.split('-').map(subWord => {
                     if(subWord.startsWith("ij")) {
                         return "IJ" + subWord.slice(2);
                     }
-
-                    if(subWord === "a/d") {
-                        return "a/d";
-                    } else {
-                        return subWord.charAt(0).toUpperCase() + subWord.slice(1);
+                    if(SPECIAL_CASES[subWord.toLowerCase()]) {
+                        return SPECIAL_CASES[subWord];
                     }
+
+                    return subWord.charAt(0).toUpperCase() + subWord.slice(1);
                 }).join('-');
             }).join(' ');
         },
