@@ -3,7 +3,7 @@ Welkom bij Station Zoeker, de website waarmee je snel de vertrek en aankomsttijd
 
 ## 📖 Hoe werkt het?
 Het werkt vrij eenvoudig, je typt in de zoekbalk jouw favoriete station in en klikt deze aan. 
-Vervolgens kan je alle gewenste info met betrekking tot vertrektijden zien. Wil je de aankomsttijden zien? Klik dan op de knop rechtsboven in beeld. Die toont je dan vervolgens de aankomsttijden. 
+Vervolgens kan je alle gewenste info met betrekking tot vertrektijden inzien. Wil je de aankomsttijden zien? Klik dan op de knop rechtsboven in beeld. Die toont je dan vervolgens de aankomsttijden. 
 
 ## 📜 Achtergrond
 Ik heb deze website gemaakt, omdat ik geïnspireerd was door de website [bahnhof.de](https://www.bahnhof.de/). Via deze website kan je alle stations in Duitsland zien en kan je checken per station welke treinen er vertrekken. Dit hadden we in Nederland nog niet. Tuurlijk, via de NS app kan je dit ook zien, maar via het web was dit nog niet mogelijk. Daarom heb ik besloten dit deels na te bouwen. 
