@@ -74,12 +74,16 @@
         }
 
         .delay-badge {
+          display: inline-block;
+          text-align: center;
           background-color: $red;
           color: $white;
           border-radius: 5px;
           padding: 2px;
           font-weight: 700;
           margin-left: 5px;
+          min-width: 25px;
+          max-width: fit-content;
         }
       }
 
