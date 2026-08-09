@@ -12,4 +12,4 @@ Met dank aan:
 - [bahnhof.de](https://www.bahnhof.de/)
 
 ## ⏩ Wat komt er nog aan?
-- Aankomsttijden kunnen inzien per station
+- Van station naar station kunnen klikken in het vertrek/aankomsttijden overzicht
