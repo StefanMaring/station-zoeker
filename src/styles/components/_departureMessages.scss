@@ -1,10 +1,17 @@
 .s-departure-messages {
-  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 2rem;
   grid-column: 1 / 4;
   width: fit-content;
 
   @media (max-width: 1400px) {
     width: 100%;
+  }
+
+  @media (max-width: 600px) {
+    margin-top: 1rem;
   }
 
   .s-departure-message {

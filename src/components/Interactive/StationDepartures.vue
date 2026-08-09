@@ -10,7 +10,7 @@
                 <p>Tijd / Eindbestemming</p>
                 <p>Perron / Platform</p>
             </div>
-            <div class="s-departure-result" :class="departure.messages.length > 0 ? 's-departure-result-with-message' : ''" v-for="(departure, index) in departures" :key="index">
+            <div class="s-departure-row" :class="departure.messages.length > 0 ? 's-departure-result-with-message' : ''" v-for="(departure, index) in departures" :key="index">
                 <DepartureElem :departure="departure" />
                 <DepartureMessages :messages="departure.messages" v-if="departure.messages.length > 0" />
             </div>

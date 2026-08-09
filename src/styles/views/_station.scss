@@ -31,6 +31,10 @@
           display: flex;
           gap: 10px;
 
+          @media (max-width: 600px) {
+            flex-direction: column;
+          }
+
           .nav-button {
             display: inline-flex;
             border-radius: 50%;
