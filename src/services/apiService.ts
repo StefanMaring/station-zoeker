@@ -49,10 +49,8 @@ export const apiService = {
       {
         method: 'GET',
         headers: {
-          'Ocp-Apim-Subscription-Key': import.meta.env.VITE_PRIMARY_KEY,
           Accept: 'application/json',
         },
-        mode: 'cors',
       },
     )
 
