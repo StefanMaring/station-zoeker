@@ -1,6 +1,7 @@
 import type { Station, StationsApiResponse } from '../types/stations'
 import type { DeparturesPayload, DeparturesApiResponse } from '../types/departures'
 import type { ArrivalsPayload, ArrivalsApiResponse } from '@/types/arrivals'
+import type { StationDetailsApiResponse, StationDetailsItem } from '@/types/stationDetails'
 
 export const apiService = {
   async getRandomStationsForHomepage(): Promise<Station[]> {
@@ -71,7 +72,7 @@ export const apiService = {
       throw new Error('No stations received from API!')
     }
 
-    return stations;
+    return stations
   },
 
   async getDeparturesForStation(stationCode: string): Promise<DeparturesPayload> {
@@ -98,7 +99,7 @@ export const apiService = {
       throw new Error('No departures received from API!')
     }
 
-    return departures;
+    return departures
   },
 
   async getArrivalsForStation(stationCode: string): Promise<ArrivalsPayload> {
@@ -125,7 +126,49 @@ export const apiService = {
       throw new Error('No arrivals received from API!')
     }
 
-    return arrivals;
+    return arrivals
+  },
+
+  async getDetailsForStation(stationName: string) {
+    const cacheKey = `station_details_for_${stationName.toLowerCase()}`
+    const cached = sessionStorage.getItem(cacheKey)
+
+    if (cached) {
+      const { cachedStationDetails } = JSON.parse(cached)
+      return cachedStationDetails
+    }
+
+    const response = await fetch(
+      `https://gateway.apiportal.ns.nl/nsapp-stations/v3?q=${stationName}&includeNonPlannableStations=false&limit=1`,
+      {
+        method: 'GET',
+        headers: {
+          'Ocp-Apim-Subscription-Key': import.meta.env.VITE_PRIMARY_KEY,
+          Accept: 'application/json',
+        },
+        mode: 'cors',
+      },
+    )
+
+    if (!response.ok) {
+      throw new Error(`Error while fetching details for station: ${response.statusText}`)
+    }
+
+    const data: StationDetailsApiResponse = await response.json()
+    const stationDetailsItems: StationDetailsItem[] = data.payload
+
+    if (!stationDetailsItems) {
+      throw new Error('No station details received from API!')
+    }
+
+    sessionStorage.setItem(
+      cacheKey,
+      JSON.stringify({
+        cachedStationDetails: stationDetailsItems,
+      }),
+    )
+
+    return stationDetailsItems
   },
 }
 

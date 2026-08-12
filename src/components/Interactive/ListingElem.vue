@@ -26,10 +26,20 @@
             </p>
         </div>
 
-        <p class="location">{{ location }}</p>
+        <p class="location">
+            <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?code=${stationDetails[0]?.id.code.toLowerCase()}&name=${location.toLowerCase()}`">
+                {{ location }}
+            </router-link>
+            <span v-else>{{ location }}</span>
+        </p>
 
         <div class="responsive-location-view">
-            <p class="location">{{ location }}</p>
+            <p class="location">
+                <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?code=${stationDetails[0]?.id.code.toLowerCase()}&name=${location.toLowerCase()}`">
+                    {{ location }}
+                </router-link>
+                <span v-else>{{ location }}</span>
+            </p>
             <div>
                 <template v-if="checkIfPlatformHasChanged(listing)">
                     <del class="original-platform">{{ listing.plannedTrack }}</del>
@@ -56,7 +66,9 @@
 <script lang="ts">
 import type { Arrival } from '@/types/arrivals';
 import type { Departure } from '@/types/departures';
+import type { StationDetailsItem } from '@/types/stationDetails';
 import type { PropType } from 'vue';
+import apiService from '@/services/apiService'
 
 export default {
     name: 'ListingElem',
@@ -65,6 +77,11 @@ export default {
             type: Object as PropType<Departure | Arrival>,
             required: true,
         },
+    },
+    data() {
+        return {
+            stationDetails: [] as StationDetailsItem[],
+        }
     },
     computed: {
         isDeparture(): boolean {
@@ -83,6 +100,19 @@ export default {
             }
 
             return [];
+        }
+    },
+    watch: {
+        location: {
+            immediate: true,
+            async handler(newLocation) {
+                if (!newLocation) return;
+                try {
+                    this.stationDetails = await apiService.getDetailsForStation(newLocation);
+                } catch (error) {
+                    console.error(`Error fetching station details for ${newLocation}`, error);
+                }
+            }
         }
     },
     methods: {

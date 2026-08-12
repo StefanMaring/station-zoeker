@@ -12,6 +12,14 @@
   height: 25px;
 }
 
+%location {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 800;
+  color: $white;
+  text-decoration: none;
+}
+
 .s-station-listings {
   .s-listing-result {
     margin-top: 1rem;
@@ -95,13 +103,23 @@
         }
 
         > .location {
-          display: inline-block;
-          margin-top: 5px;
-          font-size: 24px;
-          font-weight: 800;
-
           @media (max-width: 600px) {
             display: none;
+          }
+
+          > a {
+            @extend %location;
+            margin-top: 5px;
+            cursor: pointer;
+
+            &:hover {
+              color: $white-hv;
+              text-decoration: underline;
+            }
+          }
+
+          > span {
+            @extend %location;
           }
         }
 
@@ -117,9 +135,19 @@
           }
 
           > .location {
-            display: inline-block;
-            font-size: 24px;
-            font-weight: 800;
+            > a {
+              @extend %location;
+              cursor: pointer;
+
+              &:hover {
+                color: $white-hv;
+                text-decoration: underline;
+              }
+
+              > span {
+                @extend %location;
+              }
+            }
           }
 
           > div {
