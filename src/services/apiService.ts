@@ -5,17 +5,12 @@ import type { StationDetailsApiResponse, StationDetailsItem } from '@/types/stat
 
 export const apiService = {
   async getRandomStationsForHomepage(): Promise<Station[]> {
-    const response = await fetch(
-      'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations?countryCodes=NL',
-      {
-        method: 'GET',
-        headers: {
-          'Ocp-Apim-Subscription-Key': import.meta.env.VITE_PRIMARY_KEY,
-          Accept: 'application/json',
-        },
-        mode: 'cors',
+    const response = await fetch('/api/stations', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
       },
-    )
+    })
 
     if (!response.ok) {
       throw new Error(`Error while fetching random stations: ${response.statusText}`)
@@ -50,7 +45,7 @@ export const apiService = {
 
   async searchStations(searchQuery: string): Promise<Station[]> {
     const response = await fetch(
-      `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations?q=${searchQuery}&countryCodes=nl`,
+      `/api/stations?q=${encodeURIComponent(searchQuery)}`,
       {
         method: 'GET',
         headers: {
@@ -76,17 +71,12 @@ export const apiService = {
   },
 
   async getDeparturesForStation(stationCode: string): Promise<DeparturesPayload> {
-    const response = await fetch(
-      `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures?station=${stationCode}&maxJourneys=10`,
-      {
-        method: 'GET',
-        headers: {
-          'Ocp-Apim-Subscription-Key': import.meta.env.VITE_PRIMARY_KEY,
-          Accept: 'application/json',
-        },
-        mode: 'cors',
+    const response = await fetch(`/api/departures?station=${stationCode}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
       },
-    )
+    })
 
     if (!response.ok) {
       throw new Error(`Error while fetching departures for station: ${response.statusText}`)
@@ -104,14 +94,12 @@ export const apiService = {
 
   async getArrivalsForStation(stationCode: string): Promise<ArrivalsPayload> {
     const response = await fetch(
-      `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/arrivals?station=${stationCode}&maxJourneys=10`,
+      `/api/arrivals?station=${stationCode}`,
       {
         method: 'GET',
         headers: {
-          'Ocp-Apim-Subscription-Key': import.meta.env.VITE_PRIMARY_KEY,
           Accept: 'application/json',
         },
-        mode: 'cors',
       },
     )
 
@@ -139,14 +127,12 @@ export const apiService = {
     }
 
     const response = await fetch(
-      `https://gateway.apiportal.ns.nl/nsapp-stations/v3?q=${stationName}&includeNonPlannableStations=false&limit=1`,
+      `/api/station-details?q=${encodeURIComponent(stationName)}`,
       {
         method: 'GET',
         headers: {
-          'Ocp-Apim-Subscription-Key': import.meta.env.VITE_PRIMARY_KEY,
           Accept: 'application/json',
         },
-        mode: 'cors',
       },
     )
 
