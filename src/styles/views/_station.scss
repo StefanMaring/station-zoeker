@@ -26,14 +26,15 @@
       flex-flow: row nowrap;
       justify-content: space-between;
 
+      @media (max-width: 600px) {
+        flex-direction: column-reverse;
+        gap: 10px;
+      }
+
       .sv-station-header-right {
         .sv-nav-menu {
           display: flex;
           gap: 10px;
-
-          @media (max-width: 600px) {
-            flex-direction: column;
-          }
 
           .nav-button {
             display: inline-flex;
@@ -56,7 +57,7 @@
             }
 
             > a {
-                color: $black;
+              color: $black;
             }
           }
         }
