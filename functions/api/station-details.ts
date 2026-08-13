@@ -10,7 +10,7 @@ export async function onRequest(context: { request: Request; env: { PRIMARY_KEY:
   }
 
   const nsResponse = await fetch(
-    `https://gateway.apiportal.ns.nl/nsapp-stations/v3?q=${encodeURIComponent(stationName)}&includeNonPlannableStations=false&limit=1`,
+    `https://gateway.apiportal.ns.nl/nsapp-stations/v3?q=${encodeURIComponent(stationName)}&includeNonPlannableStations=false&limit=3`,
     {
       method: 'GET',
       headers: {

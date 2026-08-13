@@ -143,10 +143,10 @@
                 color: $white-hv;
                 text-decoration: underline;
               }
-
-              > span {
-                @extend %location;
-              }
+            }
+            
+            > span {
+              @extend %location;
             }
           }
 
