@@ -1,4 +1,4 @@
-# 🔎 Station Zoeker
+# 🔎 Station Zoeker (stationzoeker.nl)
 Welkom bij Station Zoeker, de website waarmee je snel de vertrek- en aankomsttijden van jouw favoriete stations in Nederland kan inzien. 
 
 ## 📖 Hoe werkt het?
@@ -11,7 +11,7 @@ Ik heb deze website gemaakt, omdat ik geïnspireerd was door de website [bahnhof
 In de eerste fase is daarbij vooral gefocusd op het kunnen inzien van de vertrektijden. Inmiddels is het kunnen inzien van aankomsttijden daar ook aan toegevoegd. 
 
 ## ⏩ Wat komt er nog aan?
-- Voorlopig zijn alle gewenste features gerealiseerd, maar wie weet wordt het nog uitgebreid.
+Voorlopig zijn alle gewenste features gerealiseerd, maar wie weet wordt het nog uitgebreid.
 
 ## 👏 Credits
 Met dank aan:
