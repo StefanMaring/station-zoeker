@@ -115,8 +115,9 @@ export const apiService = {
     return arrivals
   },
 
-  async getDetailsForStation(stationName: string) {
-    const cacheKey = `station_details_for_${stationName.toLowerCase()}`
+  // StationIdentifier can be the station code "gvc" or "rtd" or the name "Den Haag Centraal"
+  async getDetailsForStation(stationIdentifier: string) {
+    const cacheKey = `station_details_for_${stationIdentifier.toLowerCase()}`
     const cached = sessionStorage.getItem(cacheKey)
 
     if (cached) {
@@ -125,7 +126,7 @@ export const apiService = {
     }
 
     const response = await fetch(
-      `/api/station-details?q=${encodeURIComponent(stationName)}`,
+      `/api/station-details?q=${encodeURIComponent(stationIdentifier)}`,
       {
         method: 'GET',
         headers: {

@@ -33,10 +33,6 @@ export default {
             type: String,
             required: true,
         },
-        stationName: {
-            type: String,
-            required: true,
-        },
         isViewingDepartures: {
             type: Boolean,
             required: true,
