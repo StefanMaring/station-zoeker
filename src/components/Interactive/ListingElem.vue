@@ -27,7 +27,7 @@
         </div>
 
         <p class="location">
-            <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?code=${stationDetails[0]?.id.code.toLowerCase()}&name=${location.toLowerCase()}`">
+            <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?code=${stationDetails[0]?.id.code.toLowerCase()}`">
                 {{ location }}
             </router-link>
             <span v-else>{{ location }}</span>
@@ -35,7 +35,7 @@
 
         <div class="responsive-location-view">
             <p class="location">
-                <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?code=${stationDetails[0]?.id.code.toLowerCase()}&name=${location.toLowerCase()}`">
+                <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?code=${stationDetails[0]?.id.code.toLowerCase()}`">
                     {{ location }}
                 </router-link>
                 <span v-else>{{ location }}</span>

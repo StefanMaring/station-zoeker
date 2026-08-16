@@ -5,7 +5,7 @@
         </form>
         <div class="sf-search-results" v-if="filteredStations.length">
             <div class="sf-result-item" v-for="(station, index) in filteredStations" :key="index">
-                <a :href="`/station?code=${station.code.toLowerCase()}&name=${station.namen.lang.toLowerCase()}`">{{ station.namen.lang }}</a>
+                <a :href="`/station?code=${station.code.toLowerCase()}`">{{ station.namen.lang }}</a>
             </div>
         </div>
     </div>  

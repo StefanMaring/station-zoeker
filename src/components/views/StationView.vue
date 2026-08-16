@@ -1,8 +1,19 @@
 <template>
     <main class="m-station-view">
-        <section class="sv-content">
+        <section class="sv-content sv-content-loading" v-if="isLoading">
+            <div>
+                <p>Laden...</p>
+            </div>
+        </section>
+        <section class="sv-content sv-content-404" v-else-if="stationDetails?.length === 0">
+            <div>
+                <h1>Error 404: Dit station is niet gevonden, probeer een ander station.</h1>
+                <a href="/">Terug naar home</a>
+            </div>
+        </section>
+        <section class="sv-content" v-else>
             <div class="sv-station-header">
-                <h1>{{ stationNameFormatted(stationName) }}</h1>
+                <h1>{{ stationName }}</h1>
                 <div class="sv-station-header-right">
                     <div class="sv-nav-menu">
                         <button class="nav-button" title="Terug naar home">
@@ -21,7 +32,7 @@
                 </div>
             </div>
             <div class="sv-station-board">
-                <StationListings :stationCode="stationCode" :stationName="stationName" :isViewingDepartures="isViewingDepartures" />
+                <StationListings :stationCode="stationCode" :isViewingDepartures="isViewingDepartures" />
             </div>
         </section>
     </main>
@@ -29,7 +40,9 @@
 
 <script lang="ts">
 import type { FavoritedStation, FavoritedStations } from '@/types/favorites.ts';
+import type { StationDetailsItem } from '@/types/stationDetails.ts';
 import StationListings from '../Interactive/StationListings.vue';
+import apiService from '@/services/apiService'
 
 export default {
     name: 'StationDeparturesView',
@@ -39,36 +52,28 @@ export default {
     data() {
         return {
             stationCode: this.$route.query.code as string,
-            stationName: this.$route.query.name as string,
+            stationDetails: null as StationDetailsItem[] | null,
+            stationName: '' as string,
             isViewingDepartures: true,
+            isLoading: true,
         }
     },
+    async mounted() {
+        this.stationDetails = await this.getDetailsForCurrentStation(this.stationCode);
+        this.stationName = this.stationDetails?.[0]?.names?.long ?? '';
+        this.isLoading = false;
+    },
     methods: {
+        async getDetailsForCurrentStation(stationCode: string): Promise<StationDetailsItem[] | null> {
+            try {
+                return await apiService.getDetailsForStation(stationCode);
+            } catch (error) {
+                console.error(`Error fetching station details for ${stationCode}`, error);
+                return null;
+            }
+        },
         reloadPage() {
             window.location.reload();
-        },
-        stationNameFormatted(name: string): string {
-            const SPECIAL_CASES: Record<string, string> = {
-                "a/d": "a/d",
-                "v": "v",
-                "hs": "HS",
-                "rai": "RAI",
-                "noi": "NOI",
-                "arena": "ArenA",
-            };
-
-            return name.split(' ').map(word => {
-                return word.split('-').map(subWord => {
-                    if(subWord.startsWith("ij")) {
-                        return "IJ" + subWord.slice(2);
-                    }
-                    if(SPECIAL_CASES[subWord.toLowerCase()]) {
-                        return SPECIAL_CASES[subWord.toLowerCase()];
-                    }
-
-                    return subWord.charAt(0).toUpperCase() + subWord.slice(1);
-                }).join('-');
-            }).join(' ');
         },
         getFavoritedStations(): FavoritedStations | null {
             const favoritesData = localStorage.getItem('favoritedStations');
@@ -81,14 +86,13 @@ export default {
                 return null;
             }
 
-            const favoritedStation: FavoritedStation | undefined = favorites.favoritedStations.find(station => station.name === this.stationNameFormatted(name));
+            const favoritedStation: FavoritedStation | undefined = favorites.favoritedStations.find(station => station.name === name);
             return favoritedStation !== undefined ? favoritedStation : null;
         },
         isStationFavorited(): boolean {
             return this.getFavoritedStationByName(this.stationName) !== null;
         },
         addStationToFavorites(): void {
-            const key = this.stationName;
             const currentUrl = window.location.href;
 
             let favorites = this.getFavoritedStations();
@@ -98,7 +102,7 @@ export default {
             }
 
             const favoritedStationObj = {
-                name: this.stationNameFormatted(this.stationName),
+                name: this.stationName,
                 url: currentUrl
             }
 
@@ -109,7 +113,7 @@ export default {
             let favorites = this.getFavoritedStations();
 
             if(favorites) {
-                favorites.favoritedStations = favorites.favoritedStations.filter(station => station.name !== this.stationNameFormatted(this.stationName));
+                favorites.favoritedStations = favorites.favoritedStations.filter(station => station.name !== this.stationName);
                 localStorage.setItem('favoritedStations', JSON.stringify(favorites))
             }
         },
