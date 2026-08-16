@@ -64,4 +64,23 @@
       }
     }
   }
+
+  .sv-content-404 {
+    display: flex;
+    flex-flow: column;
+    margin-top: 15rem;
+
+    @media (max-width: 750px) {
+      margin-top: 10rem;
+    }
+
+    div {
+      > a {
+        display: inline-block;
+        margin-top: 20px;
+        color: $secondary-color;
+        font-weight: 700;
+      }
+    }
+  }
 }
