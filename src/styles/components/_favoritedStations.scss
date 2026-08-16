@@ -1,0 +1,25 @@
+.s-favorited-stations {
+  > .favorited-station-items {
+    margin-top: 5px;
+    max-height: 165px;
+    overflow-y: scroll;
+
+    > .favorited-station {
+      > i {
+        display: inline-block;
+        margin-right: 5px;
+        color: $secondary-color;
+      }
+
+      > .favorited-station-link {
+        display: inline-block;
+        color: $secondary-color;
+        font-weight: 700;
+      }
+    }
+
+    > p {
+      font-size: 14px;
+    }
+  }
+}

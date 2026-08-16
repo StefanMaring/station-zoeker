@@ -1,47 +1,71 @@
 .m-home-view {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $white-bg;
+
+  .hv-content-main {
     display: flex;
-    justify-content: center;
-    height: 100vh;
-    background-color: $white-bg;
+    flex-flow: column;
+    background-color: $primary-color;
+    color: $white;
+    border-radius: 5px;
+    padding: 2rem;
+    width: 35%;
+    max-height: fit-content;
 
-    .hv-content {
-        display: flex;
-        flex-flow: column;
-        background-color: $primary-color;
-        color: $white;
-        border-radius: 5px;
-        padding: 2rem;
-        width: 35%;
-        max-height: fit-content;
-        margin-top: 15rem;
-
-        @media (max-width: 1200px) {
-            width: 50%;
-        }
-
-        @media (max-width: 780px) {
-            width: 75%;
-        }
-
-        @media (max-width: 650px) {
-            width: 100%;
-            border-radius: 0;
-            margin-top: 7rem;
-        }
-
-        .hv-greeting {
-            > h2 {
-                font-size: 20px;
-                font-weight: 600;
-            }
-        }
-
-        .hv-search-form {
-            margin-top: 1rem;
-        }
-
-        .hv-suggested-stations {
-            margin-top: 1rem;
-        }
+    @media (max-width: 1200px) {
+      width: 50%;
     }
+
+    @media (max-width: 780px) {
+      width: 75%;
+    }
+
+    @media (max-width: 650px) {
+      width: 100%;
+      border-radius: 0;
+    }
+
+    .hv-greeting {
+      > h2 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 5px;
+      }
+    }
+
+    .hv-search-form {
+      margin-top: 1rem;
+    }
+
+    .hv-suggested-stations {
+      margin-top: 1rem;
+    }
+  }
+
+  .hv-content-sub {
+    margin-top: 2rem;
+    background-color: $primary-color;
+    color: $white;
+    border-radius: 5px;
+    padding: 2rem;
+    width: 35%;
+    max-height: fit-content;
+
+    @media (max-width: 1200px) {
+      width: 50%;
+    }
+
+    @media (max-width: 780px) {
+      width: 75%;
+    }
+
+    @media (max-width: 650px) {
+      width: 100%;
+      border-radius: 0;
+    }
+  }
 }
