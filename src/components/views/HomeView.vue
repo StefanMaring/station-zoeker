@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import SearchForm from '@/components/Forms/SearchForm.vue'
-import SuggestedStations from '@/components/Interactive/SuggestedStations.vue'
-import FavoritedStations from '../Interactive/FavoritedStations.vue';
+import SearchForm from '@/components/forms/SearchForm.vue'
+import SuggestedStations from '@/components/interactive/SuggestedStations.vue'
+import FavoritedStations from '../interactive/FavoritedStations.vue';
 
 export default {
     name: 'HomeView',

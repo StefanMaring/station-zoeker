@@ -30,7 +30,7 @@
 <script lang="ts">
 import type { FavoritedStation, FavoritedStations } from '@/types/favorites.ts';
 import type { StationDetailsItem } from '@/types/stationDetails.ts';
-import StationListings from '../Interactive/StationListings.vue';
+import StationListings from '../interactive/StationListings.vue';
 import apiService from '@/services/apiService'
 
 export default {
