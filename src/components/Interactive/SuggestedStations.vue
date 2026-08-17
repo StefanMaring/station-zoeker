@@ -1,8 +1,8 @@
 <template>
     <div class="s-suggested-stations" v-if="station1 && station2 && station3">
         <h4>
-            Heb je al eens van <span><a :href="`/station?code=${station1.code.toLowerCase()}`">{{ station1.namen.lang }}</a></span> gehoord? Of wat dacht je van <span><a :href="`/station?code=${station2.code.toLowerCase()}`">{{ station2.namen.lang }}</a></span>? 
-            En ben je al eens op <span><a :href="`/station?code=${station3.code.toLowerCase()}`">{{ station3.namen.lang }}</a></span> geweest?
+            Heb je al eens van <span><a :href="`/station?uicCode=${station1.UICCode}`">{{ station1.namen.lang }}</a></span> gehoord? Of wat dacht je van <span><a :href="`/station?uicCode=${station2.UICCode}`">{{ station2.namen.lang }}</a></span>? 
+            En ben je al eens op <span><a :href="`/station?uicCode=${station3.UICCode}`">{{ station3.namen.lang }}</a></span> geweest?
         </h4>
     </div>
 </template>

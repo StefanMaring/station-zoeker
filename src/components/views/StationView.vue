@@ -5,7 +5,7 @@
                 <p>Laden...</p>
             </div>
         </section>
-        <section class="sv-content sv-content-404" v-else-if="stationDetails?.length === 0">
+        <section class="sv-content sv-content-404" v-else-if="!stationDetails">
             <div>
                 <h1>Error 404: Dit station is niet gevonden, probeer een ander station.</h1>
                 <a href="/">Terug naar home</a>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="sv-station-board">
-                <StationListings :stationCode="stationCode" :isViewingDepartures="isViewingDepartures" />
+                <StationListings :uicCode="uicCode" :isViewingDepartures="isViewingDepartures" />
             </div>
         </section>
     </main>
@@ -51,24 +51,24 @@ export default {
     },
     data() {
         return {
-            stationCode: this.$route.query.code as string,
-            stationDetails: null as StationDetailsItem[] | null,
+            uicCode: Number(this.$route.query.uicCode as string),
+            stationDetails: null as StationDetailsItem | null,
             stationName: '' as string,
             isViewingDepartures: true,
             isLoading: true,
         }
     },
     async mounted() {
-        this.stationDetails = await this.getDetailsForCurrentStation(this.stationCode);
-        this.stationName = this.stationDetails?.[0]?.names?.long ?? '';
+        this.stationDetails = await this.getDetailsForCurrentStation(this.uicCode);
+        this.stationName = this.stationDetails?.names?.long ?? '';
         this.isLoading = false;
     },
     methods: {
-        async getDetailsForCurrentStation(stationCode: string): Promise<StationDetailsItem[] | null> {
+        async getDetailsForCurrentStation(uicCode: number): Promise<StationDetailsItem | null> {
             try {
-                return await apiService.getDetailsForStation(stationCode);
+                return await apiService.getDetailsForStation(uicCode);
             } catch (error) {
-                console.error(`Error fetching station details for ${stationCode}`, error);
+                console.error(`Error fetching station details for ${uicCode}`, error);
                 return null;
             }
         },

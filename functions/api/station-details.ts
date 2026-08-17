@@ -1,23 +1,28 @@
 export async function onRequest(context: { request: Request; env: { PRIMARY_KEY: string } }) {
   const url = new URL(context.request.url)
-  const stationName = url.searchParams.get('q')
+  const uicCode = url.searchParams.get('uicCode')
+  const stationName = url.searchParams.get('name')
 
-  if (!stationName) {
-    return new Response(JSON.stringify({ error: 'Station name is required' }), {
+  if (!uicCode && !stationName) {
+    return new Response(JSON.stringify({ error: 'A UICcode or station name is required' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },
     })
   }
 
+  const nsUrl = uicCode
+    ? `https://gateway.apiportal.ns.nl/nsapp-stations/v1/station?uicCode=${encodeURIComponent(uicCode)}`
+    : `https://gateway.apiportal.ns.nl/nsapp-stations/v3?q=${encodeURIComponent(stationName)}&limit=3`
+
   const nsResponse = await fetch(
-    `https://gateway.apiportal.ns.nl/nsapp-stations/v3?q=${encodeURIComponent(stationName)}&includeNonPlannableStations=false&limit=3`,
+    nsUrl,
     {
       method: 'GET',
       headers: {
         'Ocp-Apim-Subscription-Key': context.env.PRIMARY_KEY,
         Accept: 'application/json',
       },
-    }
+    },
   )
 
   if (!nsResponse.ok) {

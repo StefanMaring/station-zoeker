@@ -29,8 +29,8 @@ import type { Arrival } from '@/types/arrivals.ts';
 export default {
     name: 'StationListings',
     props: {
-        stationCode: {
-            type: String,
+        uicCode: {
+            type: Number,
             required: true,
         },
         isViewingDepartures: {
@@ -55,10 +55,10 @@ export default {
     },
     async mounted() {
         try {
-            const departures = await apiService.getDeparturesForStation(this.$props.stationCode);
+            const departures = await apiService.getDeparturesForStation(this.$props.uicCode);
             this.departures = departures.departures;
 
-            const arrivals = await apiService.getArrivalsForStation(this.$props.stationCode);
+            const arrivals = await apiService.getArrivalsForStation(this.$props.uicCode);
             this.arrivals = arrivals.arrivals;
         } catch (error) {
             console.error('Error fetching listings for station:', error)

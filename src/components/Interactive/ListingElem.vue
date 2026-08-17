@@ -27,7 +27,7 @@
         </div>
 
         <p class="location">
-            <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?code=${stationDetails[0]?.id.code.toLowerCase()}`">
+            <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?uicCode=${stationDetails[0]?.id.uicCode}`">
                 {{ location }}
             </router-link>
             <span v-else>{{ location }}</span>
@@ -35,7 +35,7 @@
 
         <div class="responsive-location-view">
             <p class="location">
-                <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?code=${stationDetails[0]?.id.code.toLowerCase()}`">
+                <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?uicCode=${stationDetails[0]?.id.uicCode}`">
                     {{ location }}
                 </router-link>
                 <span v-else>{{ location }}</span>
@@ -108,7 +108,7 @@ export default {
             async handler(newLocation) {
                 if (!newLocation) return;
                 try {
-                    this.stationDetails = await apiService.getDetailsForStation(newLocation);
+                    this.stationDetails = await apiService.getDetailsForStation(undefined, newLocation);
                 } catch (error) {
                     console.error(`Error fetching station details for ${newLocation}`, error);
                 }
