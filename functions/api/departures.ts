@@ -10,7 +10,7 @@ export async function onRequest(context: { request: Request; env: { PRIMARY_KEY:
   }
 
   const nsResponse = await fetch(
-    `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures?station=${stationCode}&maxJourneys=10`,
+    `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures?uicCode=${stationCode}&maxJourneys=10`,
     {
       method: 'GET',
       headers: {

@@ -44,15 +44,12 @@ export const apiService = {
   },
 
   async searchStations(searchQuery: string): Promise<Station[]> {
-    const response = await fetch(
-      `/api/stations?q=${encodeURIComponent(searchQuery)}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
+    const response = await fetch(`/api/stations?q=${encodeURIComponent(searchQuery)}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
       },
-    )
+    })
 
     if (!response.ok) {
       throw new Error(`Error while fetching stations: ${response.statusText}`)
@@ -68,8 +65,8 @@ export const apiService = {
     return stations
   },
 
-  async getDeparturesForStation(stationCode: string): Promise<DeparturesPayload> {
-    const response = await fetch(`/api/departures?station=${stationCode}`, {
+  async getDeparturesForStation(uicCode: number): Promise<DeparturesPayload> {
+    const response = await fetch(`/api/departures?station=${uicCode}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -90,16 +87,13 @@ export const apiService = {
     return departures
   },
 
-  async getArrivalsForStation(stationCode: string): Promise<ArrivalsPayload> {
-    const response = await fetch(
-      `/api/arrivals?station=${stationCode}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
+  async getArrivalsForStation(uicCode: number): Promise<ArrivalsPayload> {
+    const response = await fetch(`/api/arrivals?station=${uicCode}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
       },
-    )
+    })
 
     if (!response.ok) {
       throw new Error(`Error while fetching arrivals for station: ${response.statusText}`)
@@ -114,10 +108,12 @@ export const apiService = {
 
     return arrivals
   },
+  async getDetailsForStation(uicCode?: number, stationName?: string) {
+    const params = new URLSearchParams()
+    if (uicCode !== undefined) params.append('uicCode', String(uicCode))
+    if (stationName) params.append('name', stationName)
 
-  // StationIdentifier can be the station code "gvc" or "rtd" or the name "Den Haag Centraal"
-  async getDetailsForStation(stationIdentifier: string) {
-    const cacheKey = `station_details_for_${stationIdentifier.toLowerCase()}`
+    const cacheKey = `station_details_for_${params.toString() || 'unknown'}`
     const cached = sessionStorage.getItem(cacheKey)
 
     if (cached) {
@@ -125,15 +121,12 @@ export const apiService = {
       return cachedStationDetails
     }
 
-    const response = await fetch(
-      `/api/station-details?q=${encodeURIComponent(stationIdentifier)}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
+    const response = await fetch(`/api/station-details?${params.toString()}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
       },
-    )
+    })
 
     if (!response.ok) {
       throw new Error(`Error while fetching details for station: ${response.statusText}`)
