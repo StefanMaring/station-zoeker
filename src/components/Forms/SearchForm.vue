@@ -1,6 +1,6 @@
 <template>
     <div class="s-search-form">
-        <form>
+        <form autocomplete="off">
             <input v-model="searchQuery" @keyup="searchStations" type="text" placeholder="Zoek je station..." id="station-search-input"/>
         </form>
         <div class="sf-search-results" v-if="filteredStations.length">
