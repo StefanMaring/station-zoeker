@@ -6,6 +6,7 @@
             </div>
             <div v-if="searchResults.length === 0" class="srv-no-results">
                     <p>Er zijn geen zoekresultaten gevonden, probeer een andere zoekterm</p>
+                    <i class="fas fa-home"></i>
                     <a href="/">Terug naar home</a>
                 </div>
                 <div v-else class="srv-search-listings">

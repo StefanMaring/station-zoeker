@@ -64,9 +64,13 @@
     .srv-no-results {
       margin-top: 1rem;
 
+      > i {
+        @extend %link-icon-style;
+      }
+
       > a {
         @extend %link-style;
-        margin-top: 5px;
+        margin-top: 1rem;
       }
     }
 
