@@ -4,7 +4,7 @@ import type { ArrivalsPayload, ArrivalsApiResponse } from '@/types/arrivals'
 import type { StationDetailsApiResponse, StationDetailsItem } from '@/types/stationDetails'
 
 const STATION_CACHE_KEY = 'stationList'
-const ONE_WEEK_IN_MS = 7 * 24 * 60 * 60 * 1000
+const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000
 
 export const apiService = {
   async getAllStations(): Promise<Station[]> {
@@ -14,7 +14,7 @@ export const apiService = {
       const stationsObj = JSON.parse(cached)
       const cacheAge = Date.now() - new Date(stationsObj.cacheDate).getTime()
 
-      if (cacheAge < ONE_WEEK_IN_MS && stationsObj.stations) {
+      if (cacheAge < ONE_DAY_IN_MS && stationsObj.stations) {
         return stationsObj.stations
       }
     }
