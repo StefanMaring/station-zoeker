@@ -80,6 +80,12 @@
     }
 
     div {
+      > i {
+        display: inline-block;
+        color: $secondary-color;
+        margin-right: 5px;
+      }
+
       > a {
         display: inline-block;
         margin-top: 20px;
