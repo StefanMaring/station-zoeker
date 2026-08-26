@@ -12,11 +12,17 @@
 </template>
 
 <script lang="ts">
-import apiService from '@/services/apiService';
+import type { PropType } from 'vue';
 import type { Station } from '@/types/stations';
 
 export default {
     name: 'SearchForm',
+    props: {
+        stations: {
+            type: Array as PropType<Station[]>,
+            required: true,
+        }
+    },
     data() {
         return {
             searchQuery: "",
@@ -24,14 +30,15 @@ export default {
         }
     },
     methods: {
-        async searchStations() {
+        searchStations(): void {
             if(this.searchQuery === "") {
                 this.filteredStations = [];
                 return;
             }
 
-            const stations = await apiService.searchStations(this.searchQuery);
-            this.filteredStations = stations; 
+            this.filteredStations = this.stations.filter(station => {
+                return station.namen.lang.toLowerCase().includes(this.searchQuery.toLowerCase())
+            })
         },
     },
 }

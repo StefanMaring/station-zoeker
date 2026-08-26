@@ -7,24 +7,33 @@
     </div>
 </template>
 
-<script>
-import apiService from '@/services/apiService'
+<script lang="ts">
+import type { PropType } from 'vue';
+import type { Station } from '@/types/stations';
 
 export default {
     name: 'SuggestedStations',
+    props: {
+        stations: {
+            type: Array as PropType<Station[]>,
+            required: true,
+        }
+    },
     data() {
         return {
-            station1: null,
-            station2: null,
-            station3: null,
+            station1: null as Station | null,
+            station2: null as Station | null,
+            station3: null as Station | null,
         }
     },
     async mounted() {
         try {
-            const stations = await apiService.getRandomStationsForHomepage();
-            this.station1 = stations[0]
-            this.station2 = stations[1]
-            this.station3 = stations[2]
+            const shuffledStations = [...this.stations].sort(() => 0.5 - Math.random());
+            const stationsToDisplay = shuffledStations.slice(0,3)
+
+            this.station1 = stationsToDisplay[0] ?? null
+            this.station2 = stationsToDisplay[1] ?? null
+            this.station3 = stationsToDisplay[2] ?? null
         } catch (error) {
             console.error('Error fetching suggested stations:', error)
         }
