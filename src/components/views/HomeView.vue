@@ -18,6 +18,7 @@
             </div>
         </section>
     </main>
+    <div class="m-home-bg-overlay"></div>
 </template>
 
 <script>

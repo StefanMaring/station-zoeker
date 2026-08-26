@@ -4,7 +4,16 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: $white-bg;
+  background-color: $white-bg; //fallback and mobile background
+  background-image: url('/virm_blurry_station.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  @media (max-width: 1368px) {
+    background-image: none;
+  }
 
   @media (max-width: 780px) {
     margin-top: -10rem;
@@ -25,6 +34,7 @@
     padding: 2rem;
     width: 35%;
     max-height: fit-content;
+    z-index: 2;
 
     @media (max-width: 1368px) {
       width: 50%;
@@ -64,6 +74,7 @@
     padding: 2rem;
     width: 35%;
     max-height: fit-content;
+    z-index: 2;
 
     @media (max-width: 1368px) {
       width: 50%;
@@ -77,5 +88,20 @@
       width: 100%;
       border-radius: 0;
     }
+  }
+}
+
+.m-home-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background-color: $black-ts;
+  z-index: 1;
+
+  @media (max-width: 1368px) {
+    display: none;
   }
 }

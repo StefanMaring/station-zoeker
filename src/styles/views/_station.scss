@@ -54,6 +54,11 @@
             &:hover {
               background-color: $secondary-color-hv;
               transition: background-color 0.5s ease-in-out;
+
+              @media (max-width: 1368px) {
+                background-color: $secondary-color;
+                transition: none;
+              }
             }
 
             > a {
