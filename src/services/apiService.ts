@@ -3,8 +3,22 @@ import type { DeparturesPayload, DeparturesApiResponse } from '../types/departur
 import type { ArrivalsPayload, ArrivalsApiResponse } from '@/types/arrivals'
 import type { StationDetailsApiResponse, StationDetailsItem } from '@/types/stationDetails'
 
+const STATION_CACHE_KEY = 'stationList'
+const ONE_WEEK_IN_MS = 7 * 24 * 60 * 60 * 1000
+
 export const apiService = {
-  async getRandomStationsForHomepage(): Promise<Station[]> {
+  async getAllStations(): Promise<Station[]> {
+    const cached = localStorage.getItem(STATION_CACHE_KEY)
+
+    if (cached) {
+      const stationsObj = JSON.parse(cached)
+      const cacheAge = Date.now() - new Date(stationsObj.cacheDate).getTime()
+
+      if (cacheAge < ONE_WEEK_IN_MS && stationsObj.stations) {
+        return stationsObj.stations
+      }
+    }
+
     const response = await fetch('/api/stations', {
       method: 'GET',
       headers: {
@@ -13,56 +27,16 @@ export const apiService = {
     })
 
     if (!response.ok) {
-      throw new Error(`Error while fetching random stations: ${response.statusText}`)
+      throw new Error(`Error while fetching all stations: ${response.statusText}`)
     }
 
     const data: StationsApiResponse = await response.json()
-    const stations = data.payload
-
-    if (!stations || stations.length < 2) {
-      throw new Error('Number of received stations was to small!')
+    const stationsObj = {
+      cacheDate: Date.now(),
+      stations: data.payload,
     }
-
-    const selectedStations: Station[] = []
-
-    const index1 = Math.floor(Math.random() * stations.length)
-    selectedStations.push(stations[index1]!)
-
-    let index2 = Math.floor(Math.random() * stations.length)
-    while (index2 === index1) {
-      index2 = Math.floor(Math.random() * stations.length)
-    }
-    selectedStations.push(stations[index2]!)
-
-    let index3 = Math.floor(Math.random() * stations.length)
-    while (index3 === index2 || index3 === index1) {
-      index3 = Math.floor(Math.random() * stations.length)
-    }
-    selectedStations.push(stations[index3]!)
-
-    return selectedStations
-  },
-
-  async searchStations(searchQuery: string): Promise<Station[]> {
-    const response = await fetch(`/api/stations?q=${encodeURIComponent(searchQuery)}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-
-    if (!response.ok) {
-      throw new Error(`Error while fetching stations: ${response.statusText}`)
-    }
-
-    const data: StationsApiResponse = await response.json()
-    const stations: Station[] = data.payload
-
-    if (!stations) {
-      throw new Error('No stations received from API!')
-    }
-
-    return stations
+    localStorage.setItem(STATION_CACHE_KEY, JSON.stringify(stationsObj))
+    return data.payload
   },
 
   async getDeparturesForStation(uicCode: number): Promise<DeparturesPayload> {
