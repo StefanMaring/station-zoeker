@@ -1,7 +1,7 @@
 <template>
     <div class="s-search-form">
-        <form autocomplete="off">
-            <input v-model="searchQuery" @keyup="searchStations" type="text" placeholder="Zoek je station..." id="station-search-input"/>
+        <form autocomplete="off" @submit.prevent>
+            <input v-model="searchQuery" @keyup="searchStations" @keyup.enter="goToSearchResults" type="text" placeholder="Zoek je station..." id="station-search-input"/>
         </form>
         <div class="sf-search-results" v-if="filteredStations.length">
             <div class="sf-result-item" v-for="(station, index) in filteredStations" :key="index">
@@ -39,6 +39,13 @@ export default {
             this.filteredStations = this.stations.filter(station => {
                 return station.namen.lang.toLowerCase().includes(this.searchQuery.toLowerCase())
             })
+        },
+        goToSearchResults() {
+            if(this.searchQuery.length < 3) {
+                return;
+            }
+
+            this.$router.push(`/search?q=${this.searchQuery.toLowerCase()}`);
         },
     },
 }
