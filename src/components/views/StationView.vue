@@ -8,6 +8,7 @@
         <section class="sv-content sv-content-404" v-else-if="!stationDetails">
             <div>
                 <h1>Error 404: Dit station is niet gevonden, probeer een ander station.</h1>
+                <i class="fas fa-home"></i>
                 <a href="/">Terug naar home</a>
             </div>
         </section>
