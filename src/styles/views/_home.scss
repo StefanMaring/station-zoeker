@@ -11,7 +11,7 @@
   background-size: cover;
   background-attachment: fixed;
 
-  @media (max-width: 1368px) {
+  @media (max-width: 1022px) {
     background-image: none;
   }
 
@@ -101,7 +101,7 @@
   background-color: $black-ts;
   z-index: 1;
 
-  @media (max-width: 1368px) {
+  @media (max-width: 1022px) {
     display: none;
   }
 }
