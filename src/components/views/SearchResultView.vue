@@ -5,20 +5,24 @@
                 <h2>Zoekresultaten voor "{{ searchQuery }}"</h2>
             </div>
             <div v-if="searchResults.length === 0" class="srv-no-results">
-                    <p>Er zijn geen zoekresultaten gevonden, probeer een andere zoekterm</p>
-                    <i class="fas fa-home"></i>
-                    <a href="/">Terug naar home</a>
-                </div>
-                <div v-else class="srv-search-listings">
+                <p>Er zijn geen zoekresultaten gevonden, probeer een andere zoekterm.</p>
+                <i class="fas fa-home"></i>
+                <a href="/">Terug naar home</a>
+            </div>
+            <div v-else>
+                <div class="srv-search-listings">
                     <div class="search-result" v-for="(result, index) in searchResults" :key="index">
                         <i class="fas fa-arrow-right"></i>
                         <router-link :to="`/station?uicCode=${result.UICCode}`">
                             {{ result.namen.lang }}
                         </router-link>
                     </div>
-                    <i class="fas fa-home"></i>
-                    <a href="/" class="return-to-home">Terug naar home</a>
                 </div>
+                <div>
+                    <i class="fas fa-home"></i>
+                    <a href="/">Terug naar home</a>
+                </div>
+            </div>
         </section>
     </main>
     <div class="m-search-bg-overlay"></div>

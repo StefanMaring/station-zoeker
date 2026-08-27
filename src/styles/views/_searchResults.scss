@@ -23,7 +23,7 @@
   background-size: cover;
   background-attachment: fixed;
 
-  @media (max-width: 1368px) {
+  @media (max-width: 1022px) {
     background-image: none;
   }
 
@@ -74,28 +74,34 @@
       }
     }
 
-    .srv-search-listings {
-      margin-top: 1rem;
+    > div {
+      .srv-search-listings {
+        margin-top: 1rem;
+        max-height: 315px;
+        overflow-y: scroll;
 
-      .search-result {
-        margin-top: 5px;
+        .search-result {
+          margin-top: 5px;
 
+          > i {
+            @extend %link-icon-style;
+          }
+
+          > a {
+            @extend %link-style;
+          }
+        }
+      }
+
+      > div {
         > i {
           @extend %link-icon-style;
         }
 
         > a {
+          margin-top: 1rem;
           @extend %link-style;
         }
-      }
-
-      > i {
-        @extend %link-icon-style;
-      }
-
-      > a {
-        margin-top: 1rem;
-        @extend %link-style;
       }
     }
   }
@@ -111,7 +117,7 @@
   background-color: $black-ts;
   z-index: 1;
 
-  @media (max-width: 1368px) {
+  @media (max-width: 1022px) {
     display: none;
   }
 }
