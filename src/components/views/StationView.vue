@@ -33,7 +33,8 @@
                 </div>
             </div>
             <div class="sv-station-board">
-                <StationListings :uicCode="uicCode" :isViewingDepartures="isViewingDepartures" />
+                <StationListings :uicCode="uicCode" :isViewingDepartures="isViewingDepartures" :key="reloadStationListings" />
+                <PopUp v-if="isPopUpVisible" @popUpConfirmed="reloadPage()" :popUpIcon="'fas fa-sync-alt'" :popUpText="'Informatie voor het laatst 1 minuut geleden bijgewerkt, klik hier om te refreshen.'" />
             </div>
         </section>
     </main>
@@ -44,11 +45,15 @@ import type { FavoritedStation, FavoritedStations } from '@/types/favorites.ts';
 import type { StationDetailsItem } from '@/types/stationDetails.ts';
 import StationListings from '../Interactive/StationListings.vue';
 import apiService from '@/services/apiService'
+import PopUp from '../Interactive/PopUp.vue';
+
+const TIME_UNTIL_POP_UP_DISPLAYS = 60000;
 
 export default {
     name: 'StationDeparturesView',
     components: {
         StationListings,
+        PopUp,
     },
     data() {
         return {
@@ -57,12 +62,21 @@ export default {
             stationName: '' as string,
             isViewingDepartures: true,
             isLoading: true,
+            isPopUpVisible: false,
+            timerId: null as number | null,
+            reloadStationListings: 0,
         }
     },
     async mounted() {
         this.stationDetails = await this.getDetailsForCurrentStation(this.uicCode);
         this.stationName = this.stationDetails?.names?.long ?? '';
-        this.isLoading = false;
+        this.isLoading = false;  
+        this.startPopUpTimer();
+    },
+    unmounted() {
+        if(this.timerId) {
+            clearTimeout(this.timerId);
+        }
     },
     methods: {
         async getDetailsForCurrentStation(uicCode: number): Promise<StationDetailsItem | null> {
@@ -74,7 +88,8 @@ export default {
             }
         },
         reloadPage() {
-            window.location.reload();
+            this.reloadStationListings++;
+            this.startPopUpTimer();
         },
         getFavoritedStations(): FavoritedStations | null {
             const favoritesData = localStorage.getItem('favoritedStations');
@@ -127,6 +142,17 @@ export default {
 
             this.$forceUpdate();
         },
+        startPopUpTimer() {
+            if(this.timerId) {
+                clearTimeout(this.timerId);
+            }
+
+            this.isPopUpVisible = false;
+
+            this.timerId = window.setTimeout(() => {
+                this.isPopUpVisible = true;
+            }, TIME_UNTIL_POP_UP_DISPLAYS);
+        }
     },
 }
 </script>

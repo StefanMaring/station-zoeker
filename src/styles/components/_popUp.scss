@@ -1,0 +1,28 @@
+.pop-up {
+  position: sticky;
+  bottom: 0rem;
+  padding: 1rem;
+  background-color: $secondary-color;
+  color: $black;
+  text-decoration: underline;
+  font-weight: 700;
+  border-radius: 5px;
+  width: calc(100% - 4rem);
+  pointer-events: auto;
+  margin: 0 auto;
+
+  @media (max-width: 750px) {
+    width: 100%;
+  }
+
+  .pop-up-content {
+    > p {
+      cursor: pointer;
+
+      > span {
+        display: inline-block;
+        margin-right: 2px;
+      }
+    }
+  }
+}
