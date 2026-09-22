@@ -1,0 +1,21 @@
+.journey-details {
+  border-bottom: 2px solid $white;
+
+  .journey-details-info {
+    margin-top: 10px;
+
+    > .journey-stops {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 5px;
+      margin: 5px 0px 10px 0px;
+
+      > div {
+        > a {
+          color: $white;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

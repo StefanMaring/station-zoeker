@@ -1,74 +1,79 @@
 <template>
-    <div class="column-one">
-        <p class="product-name">
-            {{ listing.product.operatorName }} {{ listing.product.longCategoryName }} 
-            <span v-if="'lineNumber' in listing.product && listing.product.lineNumber">
-                {{ listing.product.lineNumber }}
-            </span>
-        </p>
-        <template v-if="getDelayInMinutes(listing) > 0">
-            <del class="original-time">{{ formatTime(listing.plannedDateTime) }}</del>
-            <span class="actual-time-delay">{{ formatTime(listing.actualDateTime) }}</span>
-            <span class="delay-badge">+{{ getDelayInMinutes(listing) }}</span>
-        </template>
-
-        <template v-else>
-            <span class="actual-time">{{ formatTime(listing.plannedDateTime) }}</span>
-        </template>
-    </div>
-
-    <div class="column-two">
-        <div class="route-stations" v-if="routeStations.length">
-            <p>via: </p>
-            <p v-for="(routeStation, index) in routeStations" :key="index">
-                {{ routeStation.mediumName }} 
-                <span v-if="index < routeStations.length - 1">-</span>
+    <div class="upper-row" @click="getJourneyDetails()">
+        <div class="column-one">
+            <p class="product-name">
+                {{ listing.product.operatorName }} {{ listing.product.longCategoryName }} 
+                <span v-if="'lineNumber' in listing.product && listing.product.lineNumber">
+                    {{ listing.product.lineNumber }}
+                </span>
             </p>
+            <template v-if="getDelayInMinutes(listing) > 0">
+                <del class="original-time">{{ formatTime(listing.plannedDateTime) }}</del>
+                <span class="actual-time-delay">{{ formatTime(listing.actualDateTime) }}</span>
+                <span class="delay-badge">+{{ getDelayInMinutes(listing) }}</span>
+            </template>
+
+            <template v-else>
+                <span class="actual-time">{{ formatTime(listing.plannedDateTime) }}</span>
+            </template>
         </div>
 
-        <p class="location">
-            <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?uicCode=${stationDetails[0]?.id.uicCode}`">
-                {{ location }}
-            </router-link>
-            <span v-else>{{ location }}</span>
-        </p>
+        <div class="column-two">
+            <div class="route-stations" v-if="routeStations.length">
+                <p>via: </p>
+                <p v-for="(routeStation, index) in routeStations" :key="index">
+                    {{ routeStation.mediumName }} 
+                    <span v-if="index < routeStations.length - 1">-</span>
+                </p>
+            </div>
 
-        <div class="responsive-location-view">
             <p class="location">
                 <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?uicCode=${stationDetails[0]?.id.uicCode}`">
                     {{ location }}
                 </router-link>
                 <span v-else>{{ location }}</span>
             </p>
-            <div>
-                <template v-if="checkIfPlatformHasChanged(listing)">
-                    <del class="original-platform">{{ listing.plannedTrack }}</del>
-                    <span class="actual-platform-changed">{{ listing.actualTrack }}</span>
-                </template>
-                <template v-else>
-                    <span class="actual-platform">{{ listing.plannedTrack }}</span>
-                </template>
+
+            <div class="responsive-location-view">
+                <p class="location">
+                    <router-link v-if="stationDetails[0]?.country === 'NL'" :to="`/station?uicCode=${stationDetails[0]?.id.uicCode}`">
+                        {{ location }}
+                    </router-link>
+                    <span v-else>{{ location }}</span>
+                </p>
+                <div>
+                    <template v-if="checkIfPlatformHasChanged(listing)">
+                        <del class="original-platform">{{ listing.plannedTrack }}</del>
+                        <span class="actual-platform-changed">{{ listing.actualTrack }}</span>
+                    </template>
+                    <template v-else>
+                        <span class="actual-platform">{{ listing.plannedTrack }}</span>
+                    </template>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="column-three">
-        <template v-if="checkIfPlatformHasChanged(listing)">
-            <del class="original-platform">{{ listing.plannedTrack }}</del>
-            <span class="actual-platform-changed">{{ listing.actualTrack }}</span>
-        </template>
-        <template v-else>
-            <span class="actual-platform">{{ listing.plannedTrack }}</span>
-        </template>
+        <div class="column-three">
+            <template v-if="checkIfPlatformHasChanged(listing)">
+                <del class="original-platform">{{ listing.plannedTrack }}</del>
+                <span class="actual-platform-changed">{{ listing.actualTrack }}</span>
+            </template>
+            <template v-else>
+                <span class="actual-platform">{{ listing.plannedTrack }}</span>
+            </template>
+        </div>
     </div>
+    <JourneyDetails :journeyDetails="journeyDetails" v-if="journeyDetails && isDisplayingDetails" />
 </template>
 
 <script lang="ts">
 import type { Arrival } from '@/types/arrivals';
 import type { Departure } from '@/types/departures';
 import type { StationDetailsItem } from '@/types/stationDetails';
+import type { JourneyPayload } from '@/types/journeyDetails';
 import type { PropType } from 'vue';
-import apiService from '@/services/apiService'
+import apiService from '@/services/apiService';
+import JourneyDetails from './JourneyDetails.vue';
 
 export default {
     name: 'ListingElem',
@@ -78,9 +83,15 @@ export default {
             required: true,
         },
     },
+    components: {
+        JourneyDetails,
+    },
     data() {
         return {
             stationDetails: [] as StationDetailsItem[],
+            journeyDetails: null as JourneyPayload | null,
+            isDisplayingDetails: false,
+            isLoadingDetails: false,
         }
     },
     computed: {
@@ -133,6 +144,24 @@ export default {
         checkIfPlatformHasChanged(listing: Departure | Arrival) {
             return listing.plannedTrack !== listing.actualTrack;
         },
+        async getJourneyDetails() {
+            this.isDisplayingDetails = !this.isDisplayingDetails;
+
+            if(this.isDisplayingDetails && !this.journeyDetails) {
+                this.isLoadingDetails = true;
+
+                try {
+                    const trainNumber = this.listing.product?.number;
+                    const journeyDetails = await apiService.getJourneyDetails(String(trainNumber));
+                    this.journeyDetails = journeyDetails;
+                    console.log(journeyDetails);
+                } catch (error) {
+                    console.error('Error fetching listings for station:', error)
+                } finally {
+                    this.isLoadingDetails = false;
+                }
+            }
+        }
     }
 }
 </script>

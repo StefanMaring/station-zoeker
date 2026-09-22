@@ -52,91 +52,65 @@
     }
 
     .s-listing-row {
-      display: grid;
-      grid-template-columns: 1fr 40% 1fr;
-      grid-template-rows: auto fit-content(100%);
-      align-items: end;
-      padding: 2rem 0;
-      border-top: 2px solid $white;
-      border-bottom: 2px solid $white;
+      .upper-row {
+        display: grid;
+        grid-template-columns: 1fr 40% 1fr;
+        grid-template-rows: auto fit-content(100%);
+        align-items: end;
+        padding: 2rem 0;
+        border-top: 2px solid $white;
+        cursor: pointer;
 
-      @media (max-width: 600px) {
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: normal;
-      }
-
-      .column-one {
         @media (max-width: 600px) {
-          margin-bottom: 0.5rem;
-        }
-
-        .product-name {
-          font-weight: 700;
-          margin-bottom: 15px;
-        }
-
-        .actual-time-delay {
-          display: inline-block;
-          margin-left: 5px;
-        }
-
-        .delay-badge {
-          display: inline-block;
-          text-align: center;
-          background-color: $red;
-          color: $white;
-          border-radius: 5px;
-          padding: 2px;
-          font-weight: 700;
-          margin-left: 5px;
-          min-width: 25px;
-          max-width: fit-content;
-        }
-      }
-
-      .column-two {
-        .route-stations {
           display: flex;
-          flex-flow: row wrap;
-          gap: 5px;
+          flex-flow: column nowrap;
+          align-items: normal;
         }
 
-        > .location {
+        .column-one {
           @media (max-width: 600px) {
-            display: none;
+            margin-bottom: 0.5rem;
           }
 
-          > a {
-            @extend %location;
-            margin-top: 5px;
-            cursor: pointer;
-
-            &:hover {
-              color: $white-hv;
-              text-decoration: underline;
-            }
+          .product-name {
+            font-weight: 700;
+            margin-bottom: 15px;
           }
 
-          > span {
-            @extend %location;
+          .actual-time-delay {
+            display: inline-block;
+            margin-left: 5px;
+          }
+
+          .delay-badge {
+            display: inline-block;
+            text-align: center;
+            background-color: $red;
+            color: $white;
+            border-radius: 5px;
+            padding: 2px;
+            font-weight: 700;
+            margin-left: 5px;
+            min-width: 25px;
+            max-width: fit-content;
           }
         }
 
-        > .responsive-location-view {
-          display: none;
-
-          @media (max-width: 600px) {
+        .column-two {
+          .route-stations {
             display: flex;
-            flex-flow: row nowrap;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.5rem;
+            flex-flow: row wrap;
+            gap: 5px;
           }
 
           > .location {
+            @media (max-width: 600px) {
+              display: none;
+            }
+
             > a {
               @extend %location;
+              margin-top: 5px;
               cursor: pointer;
 
               &:hover {
@@ -144,35 +118,63 @@
                 text-decoration: underline;
               }
             }
-            
+
             > span {
               @extend %location;
             }
           }
 
-          > div {
-            > .actual-platform {
-              display: inline-block;
-              margin-top: 5px;
+          > .responsive-location-view {
+            display: none;
+
+            @media (max-width: 600px) {
+              display: flex;
+              flex-flow: row nowrap;
+              justify-content: space-between;
+              align-items: center;
+              margin-top: 0.5rem;
             }
 
-            > .actual-platform-changed {
-              @extend %platform-changed-badge;
+            > .location {
+              > a {
+                @extend %location;
+                cursor: pointer;
+
+                &:hover {
+                  color: $white-hv;
+                  text-decoration: underline;
+                }
+              }
+
+              > span {
+                @extend %location;
+              }
+            }
+
+            > div {
+              > .actual-platform {
+                display: inline-block;
+                margin-top: 5px;
+              }
+
+              > .actual-platform-changed {
+                @extend %platform-changed-badge;
+              }
             }
           }
         }
-      }
 
-      //Only displayed on desktop
-      .column-three {
-        text-align: right;
+        //Only displayed on desktop
+        .column-three {
+          text-align: right;
 
-        @media (max-width: 600px) {
-          display: none;
-        }
+          @media (max-width: 600px) {
+            display: none;
+          }
 
-        .actual-platform-changed {
-          @extend %platform-changed-badge;
+          .actual-platform-changed {
+            @extend %platform-changed-badge;
+          }
         }
       }
     }

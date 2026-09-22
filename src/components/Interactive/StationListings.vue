@@ -12,7 +12,7 @@
             </div>
             <div class="s-listing-row" :class="listing.messages.length > 0 ? 's-listing-result-with-message' : ''" v-for="(listing, index) in activeListings" :key="index">
                 <ListingElem :listing="listing" />
-                <ListingMessages :messages="listing.messages" v-if="listing.messages.length > 0" />
+                <ListingMessages :messages="listing.messages" v-if="listing.messages.length > 0" />   
             </div>
         </div>
         <div class="s-no-listings" v-else>Er zijn momenteel geen {{ isViewingDepartures ? 'vertrekkende' : 'binnenkomende' }} treinen op dit station.</div>
@@ -25,6 +25,7 @@ import ListingElem from './ListingElem.vue'
 import ListingMessages from './ListingMessages.vue'
 import type { Departure } from '@/types/departures'
 import type { Arrival } from '@/types/arrivals.ts';
+import JourneyDetails from './JourneyDetails.vue';
 
 export default {
     name: 'StationListings',
@@ -41,6 +42,7 @@ export default {
     components: {
         ListingElem,
         ListingMessages,
+        JourneyDetails,
     },
     data() {
         return {
