@@ -2,6 +2,7 @@ import type { Station, StationsApiResponse } from '../types/stations'
 import type { DeparturesPayload, DeparturesApiResponse } from '../types/departures'
 import type { ArrivalsPayload, ArrivalsApiResponse } from '@/types/arrivals'
 import type { StationDetailsApiResponse, StationDetailsItem } from '@/types/stationDetails'
+import type { JourneyApiResponse, JourneyPayload } from '@/types/journeyDetails'
 
 const STATION_CACHE_KEY = 'stationList'
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000
@@ -121,6 +122,27 @@ export const apiService = {
     )
 
     return stationDetailsItems
+  },
+  async getJourneyDetails(trainNumber: string): Promise<JourneyPayload> {
+    const response = await fetch(`/api/journey-details?trainNumber=${trainNumber}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`Error while fetching journey details: ${response.statusText}`)
+    }
+
+    const data: JourneyApiResponse = await response.json()
+    const journeyDetails: JourneyPayload = data.payload
+
+    if (!journeyDetails) {
+      throw new Error('No journey details received from API!')
+    }
+
+    return journeyDetails
   },
 }
 
