@@ -1,22 +1,31 @@
 <template>
     <div class="journey-details">
-        <h3>Rit Details</h3>
-        <div class="journey-details-info">
-            <p>Alle stops:</p>
-            <div class="journey-stops">
-                <div v-for="(stop, index) in intermediateStops()" :key="index">
-                    <router-link :to="`/station?uicCode=${stop.stop.uicCode}`">
+        <div class="journey-details-wrapper">
+            <div class="journey-detail journey-stops" v-if="intermediateStopsFromCurrentStation.length > 0">
+                via:
+                <div v-for="(stop, index) in intermediateStopsFromCurrentStation" :key="index">
+                    <router-link v-if="stop.stop.countryCode === 'NL'" :to="`/station?uicCode=${stop.stop.uicCode}`">
                         {{ stop.stop.name }}
                     </router-link>
-                    <span v-if="index < intermediateStops().length - 1"> - </span>
+                    <span v-else>{{ stop.stop.name }}</span>
+                    <span v-if="index < intermediateStopsFromCurrentStation.length - 1"> - </span>
                 </div>
+            </div>
+            <div class="journey-detail journey-stock-info">
+                <p v-if="stockInfo?.trainType !== undefined">Materieel type: {{ stockInfo?.trainType }}</p>
+                <p v-if="stockInfo?.trainParts?.[0]?.stockIdentifier && stockInfo.trainParts[0].stockIdentifier !== '0'">
+                    Treinstellen:
+                     <span v-for="(trainPart, index) in stockInfo?.trainParts" :key="index">
+                        {{ trainPart.stockIdentifier }}<span v-if="index < (stockInfo?.trainParts?.length ?? 0) - 1">, </span>
+                    </span>
+                </p>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import type { JourneyPayload } from '@/types/journeyDetails';
+import type { JourneyPayload, JourneyStop, StockInfo } from '@/types/journeyDetails';
 import type { PropType } from 'vue';
 
 export default {
@@ -26,11 +35,27 @@ export default {
             type: Object as PropType<JourneyPayload>,
             required: true,
         },
+        currentStationUicCode: {
+            type: Number,
+            required: true,
+        }
     },
-    methods: {
-        intermediateStops() {
-            let stops = this.journeyDetails.stops;
-            return stops.filter(stop => stop.status === 'STOP')
+    computed: {
+        intermediateStopsFromCurrentStation(): JourneyStop[] {
+            if (!this.journeyDetails?.stops) return [];
+
+            const stops = this.journeyDetails.stops;
+            const currentStationIndex = stops.findIndex(
+                stop => stop.stop.uicCode === String(this.currentStationUicCode)
+            );
+
+            const startIndex = currentStationIndex !== -1 ? currentStationIndex + 1 : 0;
+            return stops.slice(startIndex).filter(stop => stop.status === 'STOP');
+        },
+        stockInfo(): StockInfo | null {
+            if (!this.journeyDetails?.stops?.length) return null;
+            const firstStopWithStock = this.journeyDetails.stops.find(s => s.actualStock || s.plannedStock);
+            return firstStopWithStock?.actualStock || firstStopWithStock?.plannedStock || null;
         }
     }
 }

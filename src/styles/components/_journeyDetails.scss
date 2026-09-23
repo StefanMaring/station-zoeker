@@ -1,14 +1,26 @@
 .journey-details {
-  border-bottom: 2px solid $white;
+  margin-bottom: 2rem;
 
-  .journey-details-info {
-    margin-top: 10px;
+  .journey-details-wrapper {
+    .journey-detail-label {
+      display: inline-block;
+      background-color: $secondary-color;
+      color: $black;
+      padding: 0px 5px 0 5px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 600;
+    }
 
-    > .journey-stops {
+    .journey-detail {
+      font-weight: 500;
+      margin: 10px 0 10px 0;
+    }
+
+    .journey-stops {
       display: flex;
       flex-flow: row wrap;
       gap: 5px;
-      margin: 5px 0px 10px 0px;
 
       > div {
         > a {

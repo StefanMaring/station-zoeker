@@ -63,7 +63,7 @@
             </template>
         </div>
     </div>
-    <JourneyDetails :journeyDetails="journeyDetails" v-if="journeyDetails && isDisplayingDetails" />
+    <JourneyDetails :journeyDetails="journeyDetails" :currentStationUicCode="currentStationUicCode" v-if="journeyDetails && isDisplayingDetails" />
 </template>
 
 <script lang="ts">
@@ -82,6 +82,10 @@ export default {
             type: Object as PropType<Departure | Arrival>,
             required: true,
         },
+        currentStationUicCode: {
+            type: Number,
+            required: true,
+        }
     },
     components: {
         JourneyDetails,
@@ -154,7 +158,6 @@ export default {
                     const trainNumber = this.listing.product?.number;
                     const journeyDetails = await apiService.getJourneyDetails(String(trainNumber));
                     this.journeyDetails = journeyDetails;
-                    console.log(journeyDetails);
                 } catch (error) {
                     console.error('Error fetching listings for station:', error)
                 } finally {
