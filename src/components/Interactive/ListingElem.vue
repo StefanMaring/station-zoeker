@@ -95,7 +95,6 @@ export default {
             stationDetails: [] as StationDetailsItem[],
             journeyDetails: null as JourneyPayload | null,
             isDisplayingDetails: false,
-            isLoadingDetails: false,
         }
     },
     computed: {
@@ -152,17 +151,13 @@ export default {
             this.isDisplayingDetails = !this.isDisplayingDetails;
 
             if(this.isDisplayingDetails && !this.journeyDetails) {
-                this.isLoadingDetails = true;
-
                 try {
                     const trainNumber = this.listing.product?.number;
                     const journeyDetails = await apiService.getJourneyDetails(String(trainNumber));
                     this.journeyDetails = journeyDetails;
                 } catch (error) {
                     console.error('Error fetching listings for station:', error)
-                } finally {
-                    this.isLoadingDetails = false;
-                }
+                } 
             }
         }
     }
