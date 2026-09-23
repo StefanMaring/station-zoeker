@@ -19,6 +19,8 @@
                         {{ trainPart.stockIdentifier }}<span v-if="index < (stockInfo?.trainParts?.length ?? 0) - 1">, </span>
                     </span>
                 </p>
+                <p>Ritnummer: {{ trainNumber }}</p>
+                <p>Aantal delen: {{ stockInfo?.numberOfParts }}</p>
             </div>
         </div>
     </div>
@@ -38,7 +40,11 @@ export default {
         currentStationUicCode: {
             type: Number,
             required: true,
-        }
+        },
+        trainNumber: {
+            type: String,
+            required: false,
+        },
     },
     computed: {
         intermediateStopsFromCurrentStation(): JourneyStop[] {
