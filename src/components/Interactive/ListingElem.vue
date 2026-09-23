@@ -63,7 +63,7 @@
             </template>
         </div>
     </div>
-    <JourneyDetails :journeyDetails="journeyDetails" :currentStationUicCode="currentStationUicCode" v-if="journeyDetails && isDisplayingDetails && isViewingDepartures" />
+    <JourneyDetails :journeyDetails="journeyDetails" :currentStationUicCode="currentStationUicCode" :trainNumber="listing.product?.number" v-if="journeyDetails && isDisplayingDetails && isViewingDepartures" />
 </template>
 
 <script lang="ts">
