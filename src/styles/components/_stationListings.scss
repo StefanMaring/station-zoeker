@@ -52,6 +52,10 @@
     }
 
     .s-listing-row {
+        &:last-of-type {
+            border-bottom: 2px solid $white;
+        }
+
       .upper-row {
         display: grid;
         grid-template-columns: 1fr 40% 1fr;
