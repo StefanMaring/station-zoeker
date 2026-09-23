@@ -1,5 +1,5 @@
 <template>
-    <div class="upper-row" @click="getJourneyDetails()">
+    <div class="upper-row" @click="isViewingDepartures ? getJourneyDetails() : null">
         <div class="column-one">
             <p class="product-name">
                 {{ listing.product.operatorName }} {{ listing.product.longCategoryName }} 
@@ -63,7 +63,7 @@
             </template>
         </div>
     </div>
-    <JourneyDetails :journeyDetails="journeyDetails" :currentStationUicCode="currentStationUicCode" v-if="journeyDetails && isDisplayingDetails" />
+    <JourneyDetails :journeyDetails="journeyDetails" :currentStationUicCode="currentStationUicCode" v-if="journeyDetails && isDisplayingDetails && isViewingDepartures" />
 </template>
 
 <script lang="ts">
@@ -84,6 +84,10 @@ export default {
         },
         currentStationUicCode: {
             type: Number,
+            required: true,
+        },
+        isViewingDepartures: {
+            type: Boolean,
             required: true,
         }
     },

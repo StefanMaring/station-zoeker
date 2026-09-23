@@ -11,7 +11,7 @@
                 <p>Perron / Platform</p>
             </div>
             <div class="s-listing-row" :class="listing.messages.length > 0 ? 's-listing-result-with-message' : ''" v-for="(listing, index) in activeListings" :key="index">
-                <ListingElem :listing="listing" :currentStationUicCode="uicCode" />
+                <ListingElem :listing="listing" :currentStationUicCode="uicCode" :isViewingDepartures="isViewingDepartures" />
                 <ListingMessages :messages="listing.messages" v-if="listing.messages.length > 0" />   
             </div>
         </div>
