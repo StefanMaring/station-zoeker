@@ -43,7 +43,7 @@ export default {
     async mounted() {
         try {
             const stations = await apiService.getAllStations();
-            const searchQuery = String(this.$route.query.q);
+            const searchQuery = this.removeTrailingSpaces(String(this.$route.query.q));
 
             this.searchResults = stations.filter(station => {
                 return station.namen.lang.toLowerCase().includes(searchQuery.toLowerCase())
@@ -54,5 +54,10 @@ export default {
             
         }
     },
+    methods: {
+        removeTrailingSpaces(str: string): string {
+            return str.replace(/\s+$/, '');
+        }
+    }
 }
 </script>
