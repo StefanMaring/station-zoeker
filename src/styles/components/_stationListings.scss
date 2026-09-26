@@ -52,9 +52,9 @@
     }
 
     .s-listing-row {
-        &:last-of-type {
-            border-bottom: 2px solid $white;
-        }
+      &:last-of-type {
+        border-bottom: 2px solid $white;
+      }
 
       .upper-row {
         display: grid;
@@ -179,6 +179,22 @@
 
           .actual-platform-changed {
             @extend %platform-changed-badge;
+          }
+        }
+      }
+
+      .lower-row {
+        .expand-details-btn {
+          display: none;
+
+          @media (max-width: 1200px) {
+            display: inline-block;
+            background-color: lighten($primary-color, 20%);
+            color: $white;
+            border: none;
+            border-radius: 5px;
+            padding: 0px 5px 0px 5px;
+            font-weight: 700;
           }
         }
       }

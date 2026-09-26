@@ -1,27 +1,25 @@
 <template>
     <div class="journey-details">
-        <div class="journey-details-wrapper">
-            <div class="journey-detail journey-stops" v-if="intermediateStopsFromCurrentStation.length > 0">
-                via:
-                <div v-for="(stop, index) in intermediateStopsFromCurrentStation" :key="index">
-                    <router-link v-if="stop.stop.countryCode === 'NL'" :to="`/station?uicCode=${stop.stop.uicCode}`">
-                        {{ stop.stop.name }}
-                    </router-link>
-                    <span v-else>{{ stop.stop.name }}</span>
-                    <span v-if="index < intermediateStopsFromCurrentStation.length - 1"> - </span>
-                </div>
+        <div class="journey-detail journey-stops" v-if="intermediateStopsFromCurrentStation.length > 0">
+            via:
+            <div v-for="(stop, index) in intermediateStopsFromCurrentStation" :key="index">
+                <router-link v-if="stop.stop.countryCode === 'NL'" :to="`/station?uicCode=${stop.stop.uicCode}`">
+                    {{ stop.stop.name }}
+                </router-link>
+                <span v-else>{{ stop.stop.name }}</span>
+                <span v-if="index < intermediateStopsFromCurrentStation.length - 1"> - </span>
             </div>
-            <div class="journey-detail journey-stock-info">
-                <p v-if="stockInfo?.trainType !== undefined">Materieel type: {{ stockInfo?.trainType }}</p>
-                <p v-if="stockInfo?.trainParts?.[0]?.stockIdentifier && stockInfo.trainParts[0].stockIdentifier !== '0'">
-                    Treinstellen:
-                     <span v-for="(trainPart, index) in stockInfo?.trainParts" :key="index">
-                        {{ trainPart.stockIdentifier }}<span v-if="index < (stockInfo?.trainParts?.length ?? 0) - 1">, </span>
-                    </span>
-                </p>
-                <p>Ritnummer: {{ trainNumber }}</p>
-                <p>Aantal delen: {{ stockInfo?.numberOfParts }}</p>
-            </div>
+        </div>
+        <div class="journey-detail journey-stock-info">
+            <p v-if="stockInfo?.trainType !== undefined">Materieel type: {{ stockInfo?.trainType }}</p>
+            <p v-if="stockInfo?.trainParts?.[0]?.stockIdentifier && stockInfo.trainParts[0].stockIdentifier !== '0'">
+                Treinstellen:
+                    <span v-for="(trainPart, index) in stockInfo?.trainParts" :key="index">
+                    {{ trainPart.stockIdentifier }}<span v-if="index < (stockInfo?.trainParts?.length ?? 0) - 1">, </span>
+                </span>
+            </p>
+            <p>Ritnummer: {{ trainNumber }}</p>
+            <p>Aantal delen: {{ stockInfo?.numberOfParts }}</p>
         </div>
     </div>
 </template>

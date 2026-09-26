@@ -63,7 +63,12 @@
             </template>
         </div>
     </div>
-    <JourneyDetails :journeyDetails="journeyDetails" :currentStationUicCode="currentStationUicCode" :trainNumber="listing.product?.number" v-if="journeyDetails && isDisplayingDetails && isViewingDepartures" />
+    <div class="lower-row">
+        <button class="expand-details-btn" @click="isViewingDepartures ? getJourneyDetails() : null" v-if="isViewingDepartures" :style="isDisplayingDetails ? 'margin-bottom: 0rem' : 'margin-bottom: 2rem'">
+            ...
+        </button>
+        <JourneyDetails :journeyDetails="journeyDetails" :currentStationUicCode="currentStationUicCode" :trainNumber="listing.product?.number" v-if="journeyDetails && isDisplayingDetails && isViewingDepartures" />
+    </div>
 </template>
 
 <script lang="ts">
