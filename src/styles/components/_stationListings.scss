@@ -157,6 +157,8 @@
             }
 
             > div {
+              font-weight: 500;
+
               > .actual-platform {
                 display: inline-block;
                 margin-top: 5px;
@@ -172,6 +174,7 @@
         //Only displayed on desktop
         .column-three {
           text-align: right;
+          font-weight: 500;
 
           @media (max-width: 600px) {
             display: none;
