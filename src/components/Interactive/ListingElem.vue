@@ -64,10 +64,21 @@
         </div>
     </div>
     <div class="lower-row">
-        <button class="expand-details-btn" @click="isViewingDepartures ? getJourneyDetails() : null" v-if="isViewingDepartures" :style="isDisplayingDetails ? 'margin-bottom: 0rem' : 'margin-bottom: 2rem'">
+        <button
+            v-if="isViewingDepartures"
+            class="expand-details-btn"
+            :aria-expanded="isDisplayingDetails"
+            :style="{ marginBottom: isDisplayingDetails && areDetailsLoaded ? '0rem' : '2rem' }"
+            @click="getJourneyDetails()"
+        >
             ...
         </button>
-        <JourneyDetails :journeyDetails="journeyDetails" :currentStationUicCode="currentStationUicCode" :trainNumber="listing.product?.number" v-if="journeyDetails && isDisplayingDetails && isViewingDepartures" />
+        <JourneyDetails 
+            :journeyDetails="journeyDetails" 
+            :currentStationUicCode="currentStationUicCode" 
+            :trainNumber="listing.product?.number" 
+            v-if="journeyDetails && isDisplayingDetails && isViewingDepartures" 
+        />
     </div>
 </template>
 
@@ -104,6 +115,7 @@ export default {
             stationDetails: [] as StationDetailsItem[],
             journeyDetails: null as JourneyPayload | null,
             isDisplayingDetails: false,
+            areDetailsLoaded: false,
         }
     },
     computed: {
@@ -159,14 +171,15 @@ export default {
         async getJourneyDetails() {
             this.isDisplayingDetails = !this.isDisplayingDetails;
 
-            if(this.isDisplayingDetails && !this.journeyDetails) {
+            if (this.isDisplayingDetails && !this.journeyDetails) {
                 try {
                     const trainNumber = this.listing.product?.number;
                     const journeyDetails = await apiService.getJourneyDetails(String(trainNumber));
                     this.journeyDetails = journeyDetails;
+                    this.areDetailsLoaded = true;
                 } catch (error) {
-                    console.error('Error fetching listings for station:', error)
-                } 
+                    console.error('Error fetching journey details:', error);
+                }
             }
         }
     }
