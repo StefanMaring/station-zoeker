@@ -3,7 +3,7 @@ export async function onRequest(context: { request: Request; env: { PRIMARY_KEY:
   const searchQuery = url.searchParams.get('q')
 
   const nsUrl = searchQuery
-    ? `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations?q=${encodeURIComponent(searchQuery)}&countryCodes=nl`
+    ? `https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations?q=${encodeURIComponent(searchQuery)}&countryCodes=NL`
     : 'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations?countryCodes=NL'
 
   const nsResponse = await fetch(nsUrl, {

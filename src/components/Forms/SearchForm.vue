@@ -5,7 +5,9 @@
         </form>
         <div class="sf-search-results" v-if="filteredStations.length">
             <div class="sf-result-item" v-for="(station, index) in filteredStations" :key="index">
-                <a :href="`/station?uicCode=${station.UICCode}`">{{ station.namen.lang }}</a>
+                <router-link :to="`/station?uicCode=${station.UICCode}`">
+                    {{ station.namen.lang }}
+                </router-link>
             </div>
         </div>
     </div>  

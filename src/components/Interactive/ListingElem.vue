@@ -8,13 +8,13 @@
                 </span>
             </p>
             <template v-if="getDelayInMinutes(listing) > 0">
-                <del class="original-time">{{ formatTime(listing.plannedDateTime) }}</del>
-                <span class="actual-time-delay">{{ formatTime(listing.actualDateTime) }}</span>
-                <span class="delay-badge">+{{ getDelayInMinutes(listing) }}</span>
+                <del class="time original-time">{{ formatTime(listing.plannedDateTime) }}</del>
+                <span class="time actual-time-delay">{{ formatTime(listing.actualDateTime) }}</span>
+                <span class="time delay-badge">+{{ getDelayInMinutes(listing) }}</span>
             </template>
 
             <template v-else>
-                <span class="actual-time">{{ formatTime(listing.plannedDateTime) }}</span>
+                <span class="time actual-time">{{ formatTime(listing.plannedDateTime) }}</span>
             </template>
         </div>
 
