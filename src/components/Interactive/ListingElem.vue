@@ -1,11 +1,11 @@
 <template>
     <div class="upper-row" @click="isViewingDepartures ? getJourneyDetails() : null">
         <div class="column-one">
+            <p v-if="'lineNumber' in listing.product && listing.product.lineNumber" class="line-number">
+                {{ listing.product.lineNumber }}
+            </p>
             <p class="product-name">
                 {{ listing.product.operatorName }} {{ listing.product.longCategoryName }} 
-                <span v-if="'lineNumber' in listing.product && listing.product.lineNumber">
-                    {{ listing.product.lineNumber }}
-                </span>
             </p>
             <template v-if="getDelayInMinutes(listing) > 0">
                 <del class="time original-time">{{ formatTime(listing.plannedDateTime) }}</del>
